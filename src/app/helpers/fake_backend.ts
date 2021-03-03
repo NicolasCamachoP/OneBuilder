@@ -26,10 +26,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             // Receive all user data
             const user = body;
 
-            if( user.find( x => x.email === user.email )) {
+            if( users.find( x => x.email === user.email )) {
+                console.log("Username taken");
                 return error('Username taken');
             }
-            else {typescript
+            else {
                 // Adds new UID
                 user.UID = users.length ? Math.max( ...users.map( x => x.UID )) + 1 : 1;
                 users.push( user );
