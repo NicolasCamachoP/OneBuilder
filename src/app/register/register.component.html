@@ -2,7 +2,7 @@
     <main class="form-signin">
         <form (ngSubmit)="registerUser()">
             <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-            <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
+            <h1 class="h3 mb-3 fw-normal">Crear Cuenta</h1>
             <label for="inputName" class="visually-hidden">Nombre</label>
             <input type="text" id="inputName" class="form-control" placeholder="Nonito" required
                 autofocus [(ngModel)]="newUser.name" name="inputName">
@@ -11,7 +11,7 @@
                 autofocus [(ngModel)]="newUser.email" name="inputEmail">
             <label for="inputPassword" class="visually-hidden">Contraseña</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required [(ngModel)]="newUser.password" name="inputPassword">
-            <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar</button>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
         </form>
     </main>

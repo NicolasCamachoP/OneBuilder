@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
-import { first } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -19,21 +18,17 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authServ.registerAdmin();
   }
 
   public submitLogin(){
-    console.log(this.authServ.login(this.userCredentials.email, this.userCredentials.password).pipe(
-      first()
-    ).subscribe({
-      next: () => {
-        const returnUrl = this.route.snapshot.queryParams['returnUrl']
-        || '/';
-        this.router.navigateByUrl(returnUrl);
-      },
-      error: error => {
-        console.log("VALIÓ VERGA, SE ME MURIÓ MI NIÑO");
-      }
-    }));
+    if (this.authServ.login(this.userCredentials.email, this.userCredentials.password)){
+      if (this.authServ.userValue.isAdmin){
+        this.router.navigateByUrl("/admin");
+      }else[
+        //redireccionar a la parte de usuarios normalitos 
+      ]
+    }
   }
 
 }

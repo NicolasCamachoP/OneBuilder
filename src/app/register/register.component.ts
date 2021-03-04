@@ -22,16 +22,11 @@ export class RegisterComponent implements OnInit {
 
   public registerUser(){
     this.newUser.isAdmin = false;
-    console.log(this.authServ.register(this.newUser).pipe(
-      first()
-    ).subscribe({
-      next: () => {
-        console.log("REGISTRADO BEBELEAN");
-      },
-      error: error => {
-        console.log("VALIÓ VERGA, SE ME MURIÓ MI NIÑO");
-      }
-    }));
+    if (this.authServ.register(this.newUser)){
+      console.log("REGISTRADO BEBELEAN");
+    }else{
+      console.log("VALIÓ VERGA, SE ME MURIÓ MI NIÑO");
+    }
   }
 
 }
