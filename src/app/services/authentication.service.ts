@@ -71,7 +71,7 @@ export class AuthenticationService {
     logout() {
         localStorage.removeItem('user');
         this.userBroadcaster.next(null);
-        this.router.navigate(['/account/login']);
+        this.router.navigate(['/']);
     }
 
 }

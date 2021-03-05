@@ -1,1 +1,30 @@
-<p>admin works!</p>
+<h1 style="padding-top: 60px; padding-bottom: 15px;">Reporte de productos</h1>
+<div class="overflow-auto reports-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">EAN</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Disponibilidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Borrar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{product.EAN}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.stock}}</td>
+                <td>{{product.price}}</td>
+                <td>
+                    <button type="button" (click)="editProduct(product.EAN)">Editar</button>
+                </td>
+                <td>
+                    <button>Borrar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h1 style="padding-top: 15px; padding-bottom: 15px;">Reporte de Ventas</h1>
