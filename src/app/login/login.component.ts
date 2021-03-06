@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +11,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public userCredentials: User = new User();
   constructor(
-    private authServ: AuthenticationService, 
-    private route: ActivatedRoute,
-    private router: Router 
-    
+    private authServ: AuthenticationService,
+    private router: Router
+
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +25,7 @@ export class LoginComponent implements OnInit {
       if (this.authServ.userValue.isAdmin){
         this.router.navigateByUrl("/admin");
       }else[
-        //redireccionar a la parte de usuarios normalitos 
+        //redireccionar a la parte de usuarios normalitos
       ]
     }
   }

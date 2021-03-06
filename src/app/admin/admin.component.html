@@ -12,16 +12,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let product of products">
+            <tr *ngFor="let product of products; trackBy:identify">
                 <td>{{product.EAN}}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.stock}}</td>
                 <td>{{product.price}}</td>
                 <td>
-                    <button type="button" (click)="editProduct(product.EAN)">Editar</button>
+                    <button type="button" (click)="editProduct(product)">Editar</button>
                 </td>
                 <td>
-                    <button>Borrar</button>
+                    <button type="button" (click)="deleteProduct(product.EAN)">Borrar</button>
                 </td>
             </tr>
         </tbody>
