@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from '../services/stock.service';
+import { SalesService } from '../services/sales.service';
+import { Sale } from '../models/sale';
+
 import { Product } from '../models/product';
 
 @Component({
@@ -9,16 +12,23 @@ import { Product } from '../models/product';
 })
 export class AdminComponent implements OnInit {
   public products: Product[];
-  constructor(public stockSrv: StockService) { 
+  public sales: Sale[];
+  constructor(public stockSrv: StockService, public salesSrv: SalesService) {
     this.products = this.stockSrv.getProducts();
+    this.sales = this.salesSrv.getSales();
   }
 
   ngOnInit(): void {
-    
+
   }
 
   public editProduct(ean: String){
     alert(ean);
   }
+
+  public calcSaleTotal( saleID: number ){
+      return this.salesSrv.calcSaleTotal( saleID );
+  }
+
 
 }

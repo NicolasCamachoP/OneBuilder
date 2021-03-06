@@ -19,6 +19,7 @@ export class AuthenticationService {
         private router: Router,
     ) {
         this.userBroadcaster = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.registerAdmin();
         this.user = this.userBroadcaster.asObservable();
     }
 
@@ -35,9 +36,7 @@ export class AuthenticationService {
             user.name = "Administrador";
             user.password = "admin123";
             user.token = "000000";
-            user.UID = this.users.length ? Math.max(...this.users.map(x => x.UID)) + 1 : 1;
-            this.users.push(user);
-            localStorage.setItem(this.usersArrayName, JSON.stringify(this.users));
+            this.register( user );
         }
     }
 

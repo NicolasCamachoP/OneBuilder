@@ -28,3 +28,23 @@
     </table>
 </div>
 <h1 style="padding-top: 15px; padding-bottom: 15px;">Reporte de Ventas</h1>
+<div style ="margin-bottom = 200px;" class="overflow-auto reports-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID Venta</th>
+                <th scope="col">ID Cliente</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Total Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sale of sales">
+                <td>{{sale.saleID}}</td>
+                <td>{{sale.clientID}}</td>
+                <td>{{sale.dateTime.toLocaleString()}}</td>
+                <td>{{calcSaleTotal(sale.saleID)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
