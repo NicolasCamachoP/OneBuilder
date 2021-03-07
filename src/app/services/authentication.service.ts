@@ -28,7 +28,7 @@ export class AuthenticationService {
     }
 
     public registerAdmin(){
-        if (this.initializeAdmins){
+        if (this.initializeAdmins === true){
             // Mock new admin
             let user: User = new User();
             user.email = "admin@administrator.com";
@@ -37,9 +37,21 @@ export class AuthenticationService {
             user.password = "admin123";
             user.token = "000000";
             this.register( user );
+            this.createMockUser();
         }
     }
 
+    public createMockUser(){
+        let user: User = new User();
+        user.UID= 666;
+        user.email = "666@nonis.com";
+        user.password = "666";
+        user.token = "";
+        user.isAdmin = false;
+        user.name = "Patricia";
+        this.users.push(user);
+        localStorage.setItem(this.usersArrayName, JSON.stringify(this.users));
+    }
     register(user: User): boolean {
 
         if (this.users.find(x => x.email === user.email)) {

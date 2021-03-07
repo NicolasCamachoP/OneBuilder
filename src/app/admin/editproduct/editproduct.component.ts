@@ -21,7 +21,7 @@ export class EditproductComponent implements OnInit {
 
   public saveProduct(){
       this.stockSrv.updateProduct( this.product );
-      this.router.navigate([".."]);
+      this.router.navigate(["/admin"]);
   }
 
 }
