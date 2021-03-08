@@ -31,7 +31,7 @@ export class AuthenticationService implements OnDestroy {
     public get userValue(): User {
         return this.userBroadcaster.value;
     }
-    
+
     public initializeUsersData(){
         this.registerAdmin();
         this.createMockClients();
@@ -56,7 +56,7 @@ export class AuthenticationService implements OnDestroy {
         user.name = "Mark The Expert";
         this.register(user);
     }
-    
+
     public register(user: User): boolean {
         if (this.users.find(x => x.email === user.email)) {
             console.log("Username taken");
