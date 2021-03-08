@@ -1,4 +1,4 @@
-import { Injectable, DebugElement } from '@angular/core';
+import { Injectable, DebugElement, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { User } from '../models/user';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthenticationService {
+export class AuthenticationService implements OnDestroy {
     private userBroadcaster: BehaviorSubject<User>;
     public user: Observable<User>;
     private usersArrayName = 'mock-users-array';
@@ -21,6 +21,10 @@ export class AuthenticationService {
         this.userBroadcaster = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.registerAdmin();
         this.user = this.userBroadcaster.asObservable();
+    }
+
+    public ngOnDestroy() {
+        localStorage.removeItem('user');
     }
 
     public get userValue(): User {

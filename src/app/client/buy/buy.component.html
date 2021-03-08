@@ -8,7 +8,7 @@
                     <h5 class="card-price card-title">$ {{product.price}} COP</h5>
                     <h5 class="card-stock card-title">{{product.stock}} Unidades Disponibles</h5>
                     <p class="card-detail card-text">{{product.description}}</p>
-                    <button class="btn btn-outline-warning">Agregar</button>
+                    <button class="btn btn-outline-warning" (click)="addProductToCart(product)">Agregar</button>
                 </div>
             </div>
         </div>

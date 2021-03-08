@@ -42,6 +42,10 @@ export class StockService {
         return this.stock;
     }
 
+    public getProductsInStock() {
+        return this.stock.filter( x => x.stock > 0 );
+    }
+
     public deleteProduct(ean: string) {
         this.stock = this.stock.filter(x => x.EAN !== ean);
         localStorage.setItem(this.stockArrayName, JSON.stringify(this.stock));
