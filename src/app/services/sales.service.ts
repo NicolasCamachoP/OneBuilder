@@ -10,18 +10,34 @@ export class SalesService {
     private sales = JSON.parse(localStorage.getItem(this.salesArrayName)) || [];
 
     constructor() {
-        /*for( let i = 0; i < 20; i++ ){
-            let si: SaleItem[] = [];
-            for( let j = 0; j < 30; j++){
-                let _si: SaleItem = new SaleItem();
-                _si.productEAN = "1" + j;
-                _si.currentPrice = 10;
-                _si.quantity = 1;
-                _si.productName = "RTX 3090";
-                si.push( _si );
-            }
-            this.createSale( si, 666);
-        }*/
+        if (this.sales.length === 0){
+            this.createMockSales();
+        }
+    }
+
+    private createMockSales(){
+        let si: SaleItem[] = [];
+        let _si: SaleItem = new SaleItem();
+        _si.productEAN = "1365489523149";
+        _si.currentPrice = 2500000;
+        _si.quantity = 10;
+        _si.productName ="RTX 3090";
+        si.push(_si);
+        this.createSale(si, 2);
+        si= [];
+        _si = new SaleItem();
+        _si.productEAN = "2361851573222";
+        _si.currentPrice = 900000;
+        _si.quantity = 8;
+        _si.productName ="MPG B550 Gaming Carbon WiFi";
+        si.push(_si);
+        _si = new SaleItem();
+        _si.productEAN = "2364781563111";
+        _si.currentPrice = 2300000;
+        _si.quantity = 2;
+        _si.productName = "Ryzen 9 5900X";
+        si.push(_si);
+        this.createSale(si, 2);
     }
 
     public createSale(saleItems: SaleItem[], clientID: number) {

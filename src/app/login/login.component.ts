@@ -17,7 +17,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authServ.registerAdmin();
   }
 
   public submitLogin(){
