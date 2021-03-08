@@ -25,8 +25,6 @@ export class ClientComponent implements OnInit {
 
   public lastDetail(){
     let saleID = this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID);
-    //debugger;
-    //alert("Sale ID: " + saleID);
     if (saleID === null){
         Swal.fire({
             title: 'Sin Compras!',

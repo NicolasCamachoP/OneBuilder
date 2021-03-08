@@ -11,9 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ShoppingCartService implements OnDestroy {
 
-  ngOnDestroy(): void {
-    this.saveState();
-  }
+
 
 
   private saleItems: SaleItem[] = [];
@@ -21,9 +19,12 @@ export class ShoppingCartService implements OnDestroy {
 
   constructor(
     private authSrv: AuthenticationService,
-    private stockSrv: StockService,
-    private router: Router) {
+    private stockSrv: StockService) {
     this.initializeCart();
+  }
+
+  ngOnDestroy(): void {
+    this.saveState();
   }
 
   public addProduct(product: Product) {
@@ -131,10 +132,9 @@ export class ShoppingCartService implements OnDestroy {
     localStorage.setItem(this.arrayItemsName, JSON.stringify(this.saleItems));
   }
 
-
-  public checkOut() {
-    localStorage.setItem(this.arrayItemsName, JSON.stringify(this.saleItems));
-    this.router.navigateByUrl("/client/checkout");
+  public clearCart(){
+    localStorage.removeItem(this.arrayItemsName);
+    this.saleItems = [];
   }
 
 }
