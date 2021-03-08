@@ -25,8 +25,6 @@ export class ClientComponent implements OnInit {
 
   public lastDetail(){
     let saleID = this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID);
-    //debugger;
-    //alert("Sale ID: " + saleID);
     if (saleID === null){
         Swal.fire({
             title: 'Sin Compras!',
@@ -41,8 +39,8 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  public goToShoppingCart(){
-    //TODO
+  public goToBuy(){
+    this.router.navigateByUrl('client/buy');
   }
 
   public goToPurchases(){

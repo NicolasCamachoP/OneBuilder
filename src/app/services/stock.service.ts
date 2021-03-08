@@ -6,7 +6,7 @@ import { Product } from '../models/product';
 })
 export class StockService {
     private stockArrayName = 'mock-stock-array';
-    private stock = JSON.parse(localStorage.getItem(this.stockArrayName)) || [];
+    private stock: Product[] = JSON.parse(localStorage.getItem(this.stockArrayName)) || [];
     constructor() {
 
         /*for (let i = 0; i < 30; i++){
@@ -42,6 +42,10 @@ export class StockService {
         return this.stock;
     }
 
+    public getProductsInStock() {
+        return this.stock.filter( x => x.stock > 0 );
+    }
+
     public deleteProduct(ean: string) {
         this.stock = this.stock.filter(x => x.EAN !== ean);
         localStorage.setItem(this.stockArrayName, JSON.stringify(this.stock));
@@ -59,5 +63,10 @@ export class StockService {
             }
             i++;
         }
+    }
+
+    public reduceProductStock(EAN: string, amountBought: number){
+        this.stock.find(x => x.EAN === EAN).stock -= amountBought;
+        localStorage.setItem(this.stockArrayName, JSON.stringify(this.stock));
     }
 }

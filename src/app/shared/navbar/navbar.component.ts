@@ -69,4 +69,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public goToBuy(){
     this.router.navigateByUrl("/client/buy");
   }
+
+  public goToCart(){
+    this.router.navigateByUrl("/client/cart");
+  }
 }

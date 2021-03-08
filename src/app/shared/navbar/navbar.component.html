@@ -22,6 +22,7 @@
                 </li>
             </ul>
             <div class="d-flex">
+                <button *ngIf="(isLoggedin && !isAdmin)" class="btn btn-outline-warning" type="submit" (click)="goToCart()">Carrito</button>
                 <button *ngIf="isLoggedin" class="btn btn-outline-success" type="submit" (click)="logout()">Logout</button>
                 <button *ngIf="!isLoggedin" class="btn btn-outline-success" type="submit" (click)="login()">Login</button>
             </div>

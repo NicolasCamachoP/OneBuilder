@@ -7,11 +7,10 @@ import { CartComponent } from './cart/cart.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
 import Swal from "sweetalert2";
-import { CheckoutComponent } from './checkout/checkout.component';
 import { BuyComponent } from './buy/buy.component';
 
 @NgModule({
-  declarations: [ClientComponent, CartComponent, PurchasesComponent, PurchaseDetailComponent, CheckoutComponent, BuyComponent],
+  declarations: [ClientComponent, CartComponent, PurchasesComponent, PurchaseDetailComponent, BuyComponent],
   imports: [
     CommonModule,
     ClientRoutingModule
