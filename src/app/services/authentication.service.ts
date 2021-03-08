@@ -12,15 +12,16 @@ export class AuthenticationService implements OnDestroy {
     public user: Observable<User>;
     private usersArrayName = 'mock-users-array';
     private users = JSON.parse(localStorage.getItem(this.usersArrayName)) || [];
-    private initializeAdmins = false;
 
 
     constructor(
         private router: Router,
     ) {
         this.userBroadcaster = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
-        this.registerAdmin();
         this.user = this.userBroadcaster.asObservable();
+        if (this.users.length === 0) {
+            this.initializeUsersData();
+        }
     }
 
     public ngOnDestroy() {
@@ -30,40 +31,38 @@ export class AuthenticationService implements OnDestroy {
     public get userValue(): User {
         return this.userBroadcaster.value;
     }
-
-    public registerAdmin(){
-        if (this.initializeAdmins === true){
-            // Mock new admin
-            let user: User = new User();
-            user.email = "admin@administrator.com";
-            user.isAdmin = true;
-            user.name = "Administrador";
-            user.password = "admin123";
-            user.token = "000000";
-            this.register( user );
-            this.createMockUser();
-        }
+    
+    public initializeUsersData(){
+        this.registerAdmin();
+        this.createMockClients();
     }
 
-    public createMockUser(){
+    private registerAdmin() {
         let user: User = new User();
-        user.UID= 666;
-        user.email = "666@nonis.com";
-        user.password = "666";
+        user.email = "admin@onebuilder.com";
+        user.password = "admin";
+        user.token = "";
+        user.isAdmin = true;
+        user.name = "Administrador";
+        this.register(user);
+    }
+
+    private createMockClients() {
+        let user: User = new User();
+        user.email = "mark@hotmail.com";
+        user.password = "mark";
         user.token = "";
         user.isAdmin = false;
-        user.name = "Patricia";
-        this.users.push(user);
-        localStorage.setItem(this.usersArrayName, JSON.stringify(this.users));
+        user.name = "Mark The Expert";
+        this.register(user);
     }
-    register(user: User): boolean {
-
+    
+    public register(user: User): boolean {
         if (this.users.find(x => x.email === user.email)) {
             console.log("Username taken");
             return false;
         }
         else {
-            // Adds new UID
             user.UID = this.users.length ? Math.max(...this.users.map(x => x.UID)) + 1 : 1;
             this.users.push(user);
             localStorage.setItem(this.usersArrayName, JSON.stringify(this.users));
