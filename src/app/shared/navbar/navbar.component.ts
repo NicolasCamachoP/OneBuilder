@@ -10,7 +10,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit, OnDestroy {
- 
+
 
   public isLoggedin:boolean = false;
   public isAdmin:boolean = false;
@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private authSrv: AuthenticationService,
-    private router: Router) { 
+    private router: Router) {
 
     this.userSubscription = this.authSrv.user.subscribe(
       user => {
@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
   }
-  
+
 
   public logout(){
     this.authSrv.logout();
@@ -64,5 +64,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public goToRegisterPage(){
     this.router.navigateByUrl("/register");
+  }
+
+  public goToBuy(){
+    this.router.navigateByUrl("/client/buy");
   }
 }
