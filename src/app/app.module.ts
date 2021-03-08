@@ -12,12 +12,13 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
 import { fakeBackendProvider } from './helpers/fake_backend';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent, 
+    HomeComponent,
     NavbarComponent,
     FooterComponent,
     LoginComponent,
@@ -26,8 +27,9 @@ import { fakeBackendProvider } from './helpers/fake_backend';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
+    FontAwesomeModule
   ],
   providers: [fakeBackendProvider],
   bootstrap: [AppComponent]

@@ -1,3 +1,4 @@
+<!--
 <body class="text-center">
     <main class="form-signin">
         <form (ngSubmit)="registerUser()">
@@ -5,10 +6,10 @@
             <h1 class="h3 mb-3 fw-normal">Crear Cuenta</h1>
             <label for="inputName" class="visually-hidden">Nombre</label>
             <input type="text" id="inputName" class="form-control" placeholder="Nonito" required
-                autofocus [(ngModel)]="newUser.name" name="inputName">
+                                                                   autofocus [(ngModel)]="newUser.name" name="inputName">
             <label for="inputEmail" class="visually-hidden">Email</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="nonito@nonito.hola" required
-                autofocus [(ngModel)]="newUser.email" name="inputEmail">
+                                                                     autofocus [(ngModel)]="newUser.email" name="inputEmail">
             <label for="inputPassword" class="visually-hidden">Contraseña</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required [(ngModel)]="newUser.password" name="inputPassword">
             <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
@@ -16,3 +17,45 @@
         </form>
     </main>
 </body>
+-->
+<div class="container text-center">
+    <div class="card">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <img class="mb-4" src="../../assets/brand/vector/isolated-monochrome-white.svg" alt="" width="120" height="57">
+            <h1 class="h3 mb-3 fw-normal">Crear Cuenta</h1>
+            <form (ngSubmit)="registerUser()">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <fa-icon [icon]="faUser"></fa-icon> </span>
+                    </div>
+                    <input type="text" id="inputName" class="form-control" placeholder="Nombre Completo" required autofocus [(ngModel)]="newUser.name" name="inputName">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <fa-icon [icon]="faEnvelope"></fa-icon></span>
+                    </div>
+                    <input type="email" id="inputEmail" class="form-control" placeholder="nonito@nonito.hola" required
+                                                                             autofocus [(ngModel)]="newUser.email" name="inputEmail">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <fa-icon [icon]="faLock"></fa-icon></span>
+                    </div>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required [(ngModel)]="newUser.password" name="inputPassword">
+                </div> <!-- form-group// -->
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <fa-icon [icon]="faLock"></fa-icon> </span>
+                    </div>
+                    <input type="password" id="inputPasswordConf" class="form-control" placeholder="Confirma Contraseña" required [(ngModel)]="passwordConf" name="inputPasswordConf">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Registrarse</button>
+                </div> <!-- form-group// -->
+            </form>
+            <p class="mt-5 mb-3 text-muted">OneBuilder &copy; 2021</p>
+        </article>
+    </div> <!-- card.// -->
+
+</div>
+<!--container end.//-->

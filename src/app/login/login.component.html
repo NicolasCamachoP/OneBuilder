@@ -1,15 +1,15 @@
 <body class="text-center">
     <main class="form-signin">
         <form (ngSubmit)="submitLogin()">
-            <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <img class="mb-4" src="../../assets/brand/vector/isolated-monochrome-white.svg" alt="" width="120" height="57">
             <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
             <label for="inputEmail" class="visually-hidden">Email</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="nonito@nonito.hola" required
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email" required
                 autofocus [(ngModel)]="userCredentials.email" name="inputEmail">
             <label for="inputPassword" class="visually-hidden">Contraseña</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required [(ngModel)]="userCredentials.password" name="inputPassword">
             <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+            <p class="mt-5 mb-3 text-muted">OneBuilder &copy; 2021</p>
         </form>
     </main>
 </body>

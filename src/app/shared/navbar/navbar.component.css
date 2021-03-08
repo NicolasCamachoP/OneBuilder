@@ -1,0 +1,17 @@
+.container-fluid{
+    color: #edf2f4;
+}
+.one-navbar {
+    background-color: #2b2d42;
+    color: #edf2f4 !important
+}
+
+.active {
+    color: #f6bd60 !important;
+    fill: #f6bd60;
+}
+
+.nav-link{
+
+    color: #edf2f4;
+}
