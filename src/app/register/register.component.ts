@@ -35,7 +35,8 @@ export class RegisterComponent implements OnInit {
                 icon: 'success',
                 background: '#edf2f4',
                 confirmButtonText: 'Cerrar'
-            })
+            });
+            this.router.navigateByUrl("/client");
         }else{
             Swal.fire({
                 title: 'Error!',
@@ -43,7 +44,7 @@ export class RegisterComponent implements OnInit {
                 icon: 'error',
                 background: '#edf2f4',
                 confirmButtonText: 'Cerrar'
-            })
+            });
         }
 
     }

@@ -9,20 +9,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" routerLink="/login" routerLinkActive="active">Iniciar</a>
+                    <a *ngIf="!isLoggedin" class="nav-link" (click)="goToRegisterPage()" routerLinkActive="active">Registrarse</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/register" routerLinkActive="active">Registrarse</a>
+                    <a *ngIf="isAdmin" class="nav-link" (click)="goToAdminPage()" routerLinkActive="active">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/client" routerLinkActive="active">Cliente</a>
+                    <a *ngIf="(!isAdmin && isLoggedin)" class="nav-link" (click)="goToClientPage()" routerLinkActive="active">Cliente</a>
                 </li>
             </ul>
             <div class="d-flex">
-                <button class="btn btn-outline-success" type="submit" (click)="logout()">Logout</button>
+                <button *ngIf="isLoggedin" class="btn btn-outline-success" type="submit" (click)="logout()">Logout</button>
+                <button *ngIf="!isLoggedin" class="btn btn-outline-success" type="submit" (click)="login()">Login</button>
             </div>
         </div>
     </div>
