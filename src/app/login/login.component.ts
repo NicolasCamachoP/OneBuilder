@@ -24,9 +24,9 @@ export class LoginComponent implements OnInit {
     if (this.authServ.login(this.userCredentials.email, this.userCredentials.password)){
       if (this.authServ.userValue.isAdmin){
         this.router.navigateByUrl("/admin");
-      }else[
-        //redireccionar a la parte de usuarios normalitos
-      ]
+      }else{
+        this.router.navigateByUrl("/client");
+      }
     }
   }
 
