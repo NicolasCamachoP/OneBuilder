@@ -2,6 +2,10 @@
     color: #f6bd60;
 }
 
+.row {
+    text-align: right !important;
+}
+
 table {
     border-radius: 10px;
     border: 1px;

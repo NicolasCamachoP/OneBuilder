@@ -1,11 +1,11 @@
 <div class="container">
-    <div class="purchase overflow-auto">
+    <div class="purchase">
         <header>
             <div class="row">
-                <div class="col-sm-3 col-xs-3">
-                    <img src="../../../assets/bag.png" class="img-responsive">
+                <div class="col-6">
+                    <img src="../../../assets/brand/vector/default-monochrome.svg" class="img-responsive">
                 </div>
-                <div class="col-sm-9 col-xs-9 company-details">
+                <div class="col-6 company-details">
                     <div>Calle 123 #56-78</div>
                     <div>300 300 1111</div>
                     <div>info@OneBuilder.com</div>
@@ -15,19 +15,19 @@
         <main>
             <div class="row">
                 <div class="col-sm-3 col-xs-3 to-details">
-                    <div>Orden de compra</div>
-                    <div class="to-name">{{currentClient.name}}</div>
-                    <div class="to-address">{{currentClient.email}}</div>
-                    <div class="to-city">Bogotá</div>
+                    <div class="to-name">Cliente: {{currentClient.name}}</div>
+                    <div class="to-address">Dirección: {{currentClient.email}}</div>
+                    <div class="to-city">Ciudad: Bogotá D.C.</div>
                 </div>
                 <div class="col-sm-9 col-xs-9 purchase-info">
-                    <h4 class="info-code">{{sale.saleID}}</h4>
-                    <div class="info-date">Efectuado : {{sale.dateTime.toLocaleString()}}</div>
+                    <h4 class="info-code">Orden de Compra #{{sale.saleID}}</h4>
+                    <div class="info-date">Fecha de Factura: {{sale.dateTime.toLocaleString()}}</div>
                 </div>
             </div>
+            <hr>
             <div class="row">
                 <div class="col-sm-12 col-xs-12 table-responsive">
-                    <table class="table table-condensed" border="0" cellspacing="0" cellpadding="0" width="100%">
+                    <table class="" border="0" cellspacing="0" cellpadding="0" width="100%">
                         <thead>
                             <tr>
                                 <th class="text-center col-xs-1 col-sm-1">EAN</th>
@@ -41,19 +41,18 @@
                                 <td class="col-xs-1 col-sm-1 text-center">{{saleItem.productEAN}}</td>
                                 <td class="text-center">{{saleItem.productName}}</td>
                                 <td class="text-center">{{saleItem.quantity}}</td>
-                                <td class="text-right">{{saleItem.quantity * saleItem.currentPrice}}</td>
+                                <td class="text-center">{{saleItem.quantity * saleItem.currentPrice}}</td>
                             </tr>
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <th class="text-right">Total</th>
-                                <th class="text-right">{{calcTotal()}}</th>
-                            </tr>
-                            <button routerLink="/client">Regresar</button>
                         </tfoot>
                     </table>
                 </div>
             </div>
+            <div class="text-right row">
+                <p class="text-right">Total: $ {{calcTotal()}} COP</p>
+            </div>
+            <button class="btn btn-outline-warning" routerLink="/client">Regresar</button>
         </main>
     </div>
 </div>
