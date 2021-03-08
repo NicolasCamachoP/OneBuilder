@@ -1,0 +1,19 @@
+.main-header {
+    color: #f6bd60;
+}
+
+table {
+    border-radius: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: #f6bd60;
+    color: white;
+}
+
+table thead tr {
+    background-color: #f6bd60;
+    background-image: none;
+    height: 60px;
+    color: #212529;
+    text-align: center;
+}

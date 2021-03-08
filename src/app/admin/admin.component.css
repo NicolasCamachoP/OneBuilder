@@ -3,6 +3,13 @@
     margin-right: auto;
 }
 
+.subheader-admin {
+    font-style: bold;
+    font-size: 30px;
+    padding: 10px;
+    color: #edf2f4 !important;
+}
+
 .avoid-footer {
     padding-bottom: 60px !important;
 }
@@ -15,7 +22,15 @@
 
 table {
     border-radius: 10px;
+    border: 1px;
+    border-style: solid;
+    border-color: white;
     color: white;
+    border-collapse: collapse; width: 100%;
+}
+
+.th-fixed {
+    overflow-y: auto; height: 100px;
 }
 
 table thead tr{

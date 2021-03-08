@@ -1,6 +1,7 @@
 <div class="container-fluid text-center avoid-footer">
     <h1 class="header-admin">Administración OneBuilder</h1>
-    <div class=" center overflow-auto reports-container d-flex center-block justify-content-center">
+    <h3 class="subheader-admin">Productos Ingresados</h3>
+    <div class="center overflow-auto reports-container d-flex center-block justify-content-center">
         <table class="table">
             <thead>
                 <tr>
@@ -19,16 +20,16 @@
                     <td>{{product.stock}}</td>
                     <td>{{product.price}}</td>
                     <td>
-                        <button type="button" (click)="editProduct(product)">Editar</button>
+                        <button type="button" class="btn btn-outline-warning" (click)="editProduct(product)">Editar</button>
                     </td>
                     <td>
-                        <button type="button" (click)="deleteProduct(product.EAN)">Borrar</button>
+                        <button type="button" class="btn btn-outline-warning" (click)="deleteProduct(product.EAN)">Borrar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <h1>Reporte de Ventas</h1>
+    <h3 class="subheader-admin">Reporte de Ventas</h3>
     <div class=" center overflow-auto reports-container d-flex center-block justify-content-center">
         <table class="table">
             <thead>

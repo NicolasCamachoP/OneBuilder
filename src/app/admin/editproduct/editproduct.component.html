@@ -1,28 +1,31 @@
-<fieldset disabled>
-    <legend>UID y EAN no pueden ser modificados</legend>
+<div class="container">
+    <h1>Editar Producto</h1>
+    <fieldset disabled>
+        <h4 class="subheader-edit text-center">UID y EAN no pueden ser modificados</h4>
+        <div class="input-group mb-3">
+            <span class="disabled-group input-group-text">UID</span>
+            <input type="text" class="disabled-group form-control" [(ngModel)]="product.UID"placeholder="UID" aria-label="UID">
+            <span class="disable-group input-group-text">EAN</span>
+            <input type="text" class="form-control" [(ngModel)]="product.EAN"placeholder="Server" aria-label="Server">
+        </div>
+    </fieldset>
+
     <div class="input-group mb-3">
-        <span class="input-group-text">UID</span>
-        <input type="text" class="form-control" [(ngModel)]="product.UID"placeholder="UID" aria-label="UID">
-        <span class="input-group-text">EAN</span>
-        <input type="text" class="form-control" [(ngModel)]="product.EAN"placeholder="Server" aria-label="Server">
+        <span class="input-group-text" id="basic-addon2">Nombre</span>
+        <input type="text" class="form-control" [(ngModel)]="product.name"placeholder="Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
     </div>
-</fieldset>
 
-<div class="input-group mb-3">
-    <span class="input-group-text" id="basic-addon2">Nombre</span>
-    <input type="text" class="form-control" [(ngModel)]="product.name"placeholder="Name" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Precio</span>
+        <input type="text" class="form-control" [(ngModel)]="product.price" placeholder="UID" aria-label="UID">
+        <span class="input-group-text">Stock</span>
+        <input type="text" class="form-control" [(ngModel)]="product.stock"placeholder="Server" aria-label="Server">
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-text">Descripcion</span>
+        <textarea class="form-control" [(ngModel)]="product.description"aria-label="With textarea"></textarea>
+    </div>
+
+    <button class="btn btn-outline-warning centered" (click)="saveProduct()">Guardar</button>
 </div>
-
-<div class="input-group mb-3">
-    <span class="input-group-text">Precio</span>
-    <input type="text" class="form-control" [(ngModel)]="product.price" placeholder="UID" aria-label="UID">
-    <span class="input-group-text">Stock</span>
-    <input type="text" class="form-control" [(ngModel)]="product.stock"placeholder="Server" aria-label="Server">
-</div>
-
-<div class="input-group">
-    <span class="input-group-text">Descripcion</span>
-    <textarea class="form-control" [(ngModel)]="product.description"aria-label="With textarea"></textarea>
-</div>
-
-<button (click)="saveProduct()">Guardar</button>
