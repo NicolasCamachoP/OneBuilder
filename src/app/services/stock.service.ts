@@ -17,7 +17,6 @@ export class StockService {
 
     public createProduct(name: string, desc: string, st: number, pr: number, ean: string): boolean {
         if (this.stock.find(x => x.EAN === ean)) {
-            console.log("Product already registered");
             return false;
         }
         else {

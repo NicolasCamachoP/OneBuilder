@@ -29,7 +29,6 @@ export class AdminComponent implements OnInit {
     public editProduct(product: Product){
         localStorage.setItem("toEdit-product", product.EAN);
         this.router.navigateByUrl("admin/editproduct");
-
     }
 
     public calcSaleTotal( saleID: number ){
@@ -37,10 +36,12 @@ export class AdminComponent implements OnInit {
     }
 
     public deleteProduct( ean: string){
-        console.log("Started Delete");
         this.stockSrv.deleteProduct( ean );
         this.products = this.stockSrv.getProducts();
+    }
 
+    public addProduct(){
+        this.router.navigateByUrl("admin/createproduct");
     }
 
     identify( index, product){
