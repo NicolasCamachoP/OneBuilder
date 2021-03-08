@@ -1,29 +1,69 @@
 import { Injectable } from '@angular/core';
 import { SaleItem } from '../models/sale-item';
 import { Product } from '../models/product';
+import { SalesService } from './sales.service';
+import { AuthenticationService } from './authentication.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  
 
   private saleItems: SaleItem [] = [];
+  private arrayItemsName: string;
 
-  constructor() { }
+  constructor( 
+    private authSrv: AuthenticationService, 
+    private router: Router) { 
+      
+    this.arrayItemsName = "shoppingcart-";
+    this.arrayItemsName += this.authSrv.userValue.UID;
+    this.initializeCart();
+  }
 
   public addProduct (product: Product){
-    //TODO
+    let newSaleItem: SaleItem = new SaleItem();
+    newSaleItem.quantity = 1;
+    newSaleItem.productEAN = product.EAN;
+    newSaleItem.productName = product.name;
+    newSaleItem.currentPrice = product.price;
+    this.saleItems.push(newSaleItem);
   }
 
   public removeProduct (product: Product){
-    //TODO
+    let i: number = 0;
+    let j:number = -1;
+    let flag: boolean = true;
+    while(i < this.saleItems.length && flag){
+      if (this.saleItems[i].productEAN === product.EAN){
+        j = i;
+        flag = false;
+      }
+    }
+    if (j > -1){
+      this.saleItems.splice(j, 1);
+    }
   }
 
-  public increaseProduct (product: Product){
-    //TODO
+  public increaseProduct (product: Product): boolean{
+    let i = 0;
+    while(i< this.saleItems.length){
+      if (this.saleItems[i].productEAN === product.EAN){
+        if (product.stock >= this.saleItems[i].quantity +1){
+          this.saleItems[i].quantity ++;
+          return true;
+        }else{
+          return false;
+        }
+      }
+      i ++;
+    }
+    return false;
   }
 
-  public decreaseProdcut (product: Product){
+  public decreaseProduct (product: Product){
     let flag: boolean = true;
     let i = 0;
     while(i< this.saleItems.length && flag){
@@ -44,7 +84,15 @@ export class ShoppingCartService {
   }
 
   public getTotalPrice(){
-    //TODO
+    return this.saleItems.reduce((a, b) => a + b.currentPrice * b.quantity, 0);
+  }
+  initializeCart() {
+    throw new Error("Method not implemented.");
+  }
+
+  public checkOut(){
+    localStorage.setItem(this.arrayItemsName, JSON.stringify(this.saleItems));
+    this.router.navigateByUrl("/client/checkout");
   }
 
 }
