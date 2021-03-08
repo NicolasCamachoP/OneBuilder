@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { SaleItem } from '../models/sale-item';
 import { Product } from '../models/product';
 import { SalesService } from './sales.service';
@@ -8,7 +8,14 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService {
+export class ShoppingCartService implements OnInit, OnDestroy{
+
+  ngOnDestroy(): void {
+    this.saveState();
+  }
+  ngOnInit(): void {
+    this.initializeCart();
+  }
   
 
   private saleItems: SaleItem [] = [];
@@ -17,9 +24,6 @@ export class ShoppingCartService {
   constructor( 
     private authSrv: AuthenticationService, 
     private router: Router) { 
-      
-    this.arrayItemsName = "shoppingcart-";
-    this.arrayItemsName += this.authSrv.userValue.UID;
     this.initializeCart();
   }
 
@@ -86,9 +90,16 @@ export class ShoppingCartService {
   public getTotalPrice(){
     return this.saleItems.reduce((a, b) => a + b.currentPrice * b.quantity, 0);
   }
-  initializeCart() {
-    throw new Error("Method not implemented.");
+  private initializeCart() {
+    this.arrayItemsName = "shoppingcart-";
+    this.arrayItemsName += this.authSrv.userValue.UID;
+    this.saleItems = JSON.parse(localStorage.getItem(this.arrayItemsName)) || [];
   }
+
+  private saveState(){
+    localStorage.setItem(this.arrayItemsName, JSON.stringify(this.saleItems));
+  }
+
 
   public checkOut(){
     localStorage.setItem(this.arrayItemsName, JSON.stringify(this.saleItems));
