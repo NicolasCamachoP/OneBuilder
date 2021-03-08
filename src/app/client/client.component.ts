@@ -41,8 +41,8 @@ export class ClientComponent implements OnInit {
     }
   }
 
-  public goToShoppingCart(){
-    //TODO
+  public goToBuy(){
+    this.router.navigateByUrl('client/buy');
   }
 
   public goToPurchases(){

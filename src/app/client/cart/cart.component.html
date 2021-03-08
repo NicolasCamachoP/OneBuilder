@@ -16,9 +16,9 @@
                         <div class="row">{{product.productName}}</div>
                     </div>
                     <div class="col">
-                        <a href="" (click)="decreaseProductQuantity(product)">-</a>
+                        <button (click)="decreaseProductQuantity(product)">-</button>
                         <a  class="border">{{product.quantity}}</a>
-                        <a href=""(click)="increaseProductQuantity(product)">+</a>
+                        <button (click)="increaseProductQuantity(product)">+</button>
                     </div>
                     <div class="col">$ {{product.currentPrice * product.quantity}} COP <span class="close">&#10005;</span></div>
                 </div>

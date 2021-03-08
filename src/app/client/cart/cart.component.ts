@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SaleItem } from '../../models/sale-item';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-cart',
@@ -22,11 +23,28 @@ export class CartComponent implements OnInit {
     }
 
     public decreaseProductQuantity( product: SaleItem ){
-        this.shoppingSrv.decreaseProductCart( product );
+
+        if(!this.shoppingSrv.decreaseProductCart( product )){
+            Swal.fire({
+                title: 'Guardado!',
+                text: 'Producto removido del carrito!',
+                icon: 'error',
+                background: '#edf2f4',
+                confirmButtonText: 'Cerrar'
+            });
+        }
     }
 
     public increaseProductQuantity( product: SaleItem ){
-        this.shoppingSrv.increaseCartProduct( product );
+        if (!this.shoppingSrv.increaseCartProduct( product )){
+            Swal.fire({
+                title: 'Error!',
+                text: 'No hay suficiente Stock!',
+                icon: 'error',
+                background: '#edf2f4',
+                confirmButtonText: 'Cerrar'
+            });
+        }
     }
 
     public goToCheckOut() {
