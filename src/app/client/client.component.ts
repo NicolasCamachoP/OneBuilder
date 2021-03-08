@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { SalesService } from '../services/sales.service';
 import { User } from '../models/user';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-client',
@@ -13,9 +14,9 @@ export class ClientComponent implements OnInit {
   public currentClient: User;
 
   constructor(
-    private authSrv: AuthenticationService, 
-    private router: Router, 
-    private salesSrv: SalesService) { 
+    private authSrv: AuthenticationService,
+    private router: Router,
+    private salesSrv: SalesService) {
       this.currentClient = this.authSrv.userValue;
     }
 
@@ -27,7 +28,13 @@ export class ClientComponent implements OnInit {
     //debugger;
     //alert("Sale ID: " + saleID);
     if (saleID === null){
-      alert("No ha realizado compras :(");
+        Swal.fire({
+            title: 'Sin Compras!',
+            text: 'Aun no has realizado ninguna compra',
+            icon: 'error',
+            background: '#edf2f4',
+            confirmButtonText: 'Aceptar'
+        })
     }else{
       localStorage.setItem("toView-sale", saleID.toString());
       this.router.navigateByUrl('client/purchasedetail');

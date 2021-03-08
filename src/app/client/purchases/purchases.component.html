@@ -1,21 +1,23 @@
-<h1 style="padding-top: 15px; padding-bottom: 15px;">Reporte de Compras</h1>
-<div style ="margin-bottom : 200px;" class="overflow-auto reports-container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">ID Venta</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Total Venta</th>
-                <th scope="col">Ver Detalle</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let sale of sales">
-                <td>{{sale.saleID}}</td>
-                <td>{{sale.dateTime.toLocaleString()}}</td>
-                <td>{{calcSaleTotal(sale.saleID)}}</td>
-                <td><button (click)="viewDetail(sale.saleID)">Detalle</button></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container">
+    <h1 class="main-header" style="padding-top: 15px; padding-bottom: 15px;">Historial de Compras</h1>
+    <div style ="margin-bottom : 200px;" class="overflow-auto reports-container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID Venta</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Total Venta</th>
+                    <th scope="col">Ver Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let sale of sales">
+                    <td>{{sale.saleID}}</td>
+                    <td>{{sale.dateTime.toLocaleString()}}</td>
+                    <td>{{calcSaleTotal(sale.saleID)}}</td>
+                    <td><button class="btn btn-outline-warning" (click)="viewDetail(sale.saleID)">Detalle</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

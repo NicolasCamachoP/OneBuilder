@@ -6,6 +6,7 @@ import { ClientComponent } from './client.component';
 import { CartComponent } from './cart/cart.component';
 import { PurchasesComponent } from './purchases/purchases.component';
 import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
+import Swal from "sweetalert2";
 
 @NgModule({
   declarations: [ClientComponent, CartComponent, PurchasesComponent, PurchaseDetailComponent],

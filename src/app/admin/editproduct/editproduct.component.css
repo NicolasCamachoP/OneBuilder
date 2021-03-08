@@ -1,0 +1,37 @@
+.subheader-edit {
+    color: #f6bd60;
+}
+
+.form-control {
+    color: #edf2f4;
+    background-color: #2b2d42;
+}
+
+.diabled-group {
+    background-color: #555768 !important;
+}
+
+.input-group-text {
+    background-color: #2b2d42;
+    color: #f9d190;
+    font-weight: bold;
+}
+
+.centered {
+    position: absolute;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h4 {
+    font-size: 1em;
+}
+
+h1 {
+    color: #f6bd60;
+}
+
+.container {
+    padding-top: 50px;
+}
