@@ -1,5 +1,16 @@
 # OneBuilder
 
+## Integrantes
+
+Nicolas Camacho Plazas ID: 00020273998
+Mateo Florido Sanchez ID: 00020283652
+
+## Uso
+
+Se han generado cuentas de prueba para el uso del aplicativo. Si se quiere usar como administrador use las credenciales: admin@onebuilder.com / admin
+En caso de usar una cuenta de cliente: mark@hotmail.com / mark
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
 ## Development server
