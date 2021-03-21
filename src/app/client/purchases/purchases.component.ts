@@ -26,7 +26,6 @@ export class PurchasesComponent implements OnInit {
   }
 
   public viewDetail(saleID: number){
-    localStorage.setItem("toView-sale", saleID.toString());
-    this.router.navigateByUrl('client/purchasedetail');
+    this.router.navigate(['client/purchasedetail', saleID]);
   }
 }

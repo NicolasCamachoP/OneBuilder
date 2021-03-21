@@ -61,8 +61,7 @@ export class CartComponent implements OnInit {
         this.updateStock();
         this.shoppingSrv.clearCart();
         let saleID = this.salesSrv.getLastSaleIDFromClient(this.authSrv.userValue.UID);
-        localStorage.setItem("toView-sale", saleID.toString());
-        this.router.navigateByUrl('client/purchasedetail');
+        this.router.navigate(['client/purchasedetail',saleID]);
     }
 
     private updateStock(){

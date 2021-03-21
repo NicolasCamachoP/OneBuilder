@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
-import { first } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
 
@@ -19,7 +18,6 @@ export class RegisterComponent implements OnInit {
     public passwordConf: String = "";
     constructor(
         private authServ: AuthenticationService,
-        private route: ActivatedRoute,
         private router: Router
     ) { }
 
@@ -27,8 +25,6 @@ export class RegisterComponent implements OnInit {
     }
 
     public registerUser(){
-        console.log(this.newUser);
-        debugger;
         this.newUser.isAdmin = false;
         if( this.newUser.password === this.passwordConf ){
             if (this.authServ.register(this.newUser)){
