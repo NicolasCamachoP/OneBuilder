@@ -27,8 +27,7 @@ export class AdminComponent implements OnInit {
     }
 
     public editProduct(product: Product){
-        localStorage.setItem("toEdit-product", product.EAN);
-        this.router.navigateByUrl("admin/editproduct");
+        this.router.navigate(["admin/editproduct", product.EAN]);
     }
 
     public calcSaleTotal( saleID: number ){

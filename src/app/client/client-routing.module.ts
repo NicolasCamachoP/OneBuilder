@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '', component: ClientComponent
   },
   {
-    path: 'purchasedetail', component: PurchaseDetailComponent
+    path: 'purchasedetail/:saleID', component: PurchaseDetailComponent
   },
   {
     path: 'purchases', component: PurchasesComponent

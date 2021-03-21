@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { SalesService } from '../services/sales.service';
 import { User } from '../models/user';
 import Swal from "sweetalert2";
@@ -16,11 +16,12 @@ export class ClientComponent implements OnInit {
   constructor(
     private authSrv: AuthenticationService,
     private router: Router,
-    private salesSrv: SalesService) {
+    private salesSrv: SalesService, ) {
       this.currentClient = this.authSrv.userValue;
     }
 
   ngOnInit(): void {
+    
   }
 
   public lastDetail(){
@@ -34,8 +35,7 @@ export class ClientComponent implements OnInit {
             confirmButtonText: 'Aceptar'
         })
     }else{
-      localStorage.setItem("toView-sale", saleID.toString());
-      this.router.navigateByUrl('client/purchasedetail');
+      this.router.navigate(['client/purchasedetail', saleID]);
     }
   }
 
