@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { SaleItem } from '../models/sale-item';
+import { CartItem } from '../models/cart-item';
 import { Product } from '../models/product';
 import { SalesService } from './sales.service';
 import { AuthenticationService } from './authentication.service';

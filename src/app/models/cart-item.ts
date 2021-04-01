@@ -1,5 +1,6 @@
 export class CartItem {
-    public UID: number;
-    public name: string;
+    public productEAN: string;
+    public productName: string;
     public quantity: number;
+    public currentPrice: number;
 }
