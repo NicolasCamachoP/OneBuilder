@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import Swal from "sweetalert2";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginObject} from '../models/loginobject';
 
 @Component({
     selector: 'app-login',
@@ -39,6 +40,14 @@ export class LoginComponent implements OnInit {
         .subscribe(getResult => {
           console.log(getResult);
         });
+
+      const loginRequest = {
+        'email': "nonito@nonito.com",
+        'password': "test123"
+      }
+      const body = new LoginObject(loginRequest);
+      this.sendLoginMock(loginRequest);
+
       /*
         if (this.authServ.login(this.userCredentials.email, this.userCredentials.password)){
             if (this.authServ.userValue.isAdmin){
@@ -57,5 +66,14 @@ export class LoginComponent implements OnInit {
             });
         }*/
     }
+    private sendLoginMock(data: any){
+      this.http
+        .post<User>(
+          `http://localhost:8080/user/login`, data)
+        .subscribe(getResult  => {
+          console.log(getResult.UID);
+        });
+    }
+
 
 }
