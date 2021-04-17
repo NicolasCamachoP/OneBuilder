@@ -24,31 +24,31 @@ export class LoginComponent implements OnInit {
     }
 
     public submitLogin(){
-      //const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
-      this.http
+        //const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
+        this.http
         .get("http://localhost:8080/user"/*, {headers: reqHeader}*/)
         .subscribe(getResult => {
-          console.log(getResult);
+            console.log(getResult);
         });
-      this.http
+        this.http
         .get("http://localhost:8080/sale/all"/*, {headers: reqHeader}*/)
         .subscribe(getResult => {
-          console.log(getResult);
+            console.log(getResult);
         });
-      this.http
+        this.http
         .get("http://localhost:8080/product/all"/*, {headers: reqHeader}*/)
         .subscribe(getResult => {
-          console.log(getResult);
+            console.log(getResult);
         });
 
-      const loginRequest = {
-        'email': "nonito@nonito.com",
-        'password': "test123"
-      }
-      const body = new LoginObject(loginRequest);
-      this.sendLoginMock(loginRequest);
+        const loginRequest = {
+            'email': "nonito@nonito.com",
+            'password': "test123"
+        }
+        const body = new LoginObject(loginRequest);
+        this.sendLoginMock(loginRequest);
 
-      /*
+
         if (this.authServ.login(this.userCredentials.email, this.userCredentials.password)){
             if (this.authServ.userValue.isAdmin){
                 this.router.navigateByUrl("/admin");
@@ -64,15 +64,15 @@ export class LoginComponent implements OnInit {
                 background: '#edf2f4',
                 confirmButtonText: 'Cerrar'
             });
-        }*/
+        }
     }
     private sendLoginMock(data: any){
-      this.http
+        this.http
         .post<User>(
-          `http://localhost:8080/user/login`, data)
-        .subscribe(getResult  => {
-          console.log(getResult.UID);
-        });
+            `http://localhost:8080/user/login`, data)
+                .subscribe(getResult  => {
+                console.log(getResult.UID);
+            });
     }
 
 

@@ -55,6 +55,15 @@ export class AuthenticationService implements OnDestroy {
         user.isAdmin = false;
         user.name = "Mark The Expert";
         this.register(user);
+        let user2: User = new User();
+        user2.email = "mateo@mateo.com";
+        user2.password = "mateo";
+        user2.token = "";
+        user2.isAdmin = false;
+        user2.name = "Mark The Expert";
+        this.register(user2);
+
+
     }
 
     public register(user: User): boolean {
@@ -63,7 +72,7 @@ export class AuthenticationService implements OnDestroy {
             return false;
         }
         else {
-            user.UID = this.users.length ? Math.max(...this.users.map(x => x.UID)) + 1 : 1;
+            user.UID = this.users.length ? Math.max(...this.users.map(x => x.UID)) + 2 : 1;
             this.users.push(user);
             localStorage.setItem(this.usersArrayName, JSON.stringify(this.users));
             return true;
