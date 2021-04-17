@@ -11,7 +11,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthenticationService } from './services/authentication.service';
-import { fakeBackendProvider } from './helpers/fake_backend';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
@@ -31,7 +30,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HttpClientModule,
     FontAwesomeModule
   ],
-  providers: [fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,7 @@ import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import Swal from "sweetalert2";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
     public userCredentials: User = new User();
     constructor(
         private authServ: AuthenticationService,
-        private router: Router
+        private router: Router,
+        private http: HttpClient
 
     ) { }
 
@@ -21,6 +23,23 @@ export class LoginComponent implements OnInit {
     }
 
     public submitLogin(){
+      //const reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'No-Auth': 'True' });
+      this.http
+        .get("http://localhost:8080/user"/*, {headers: reqHeader}*/)
+        .subscribe(getResult => {
+          console.log(getResult);
+        });
+      this.http
+        .get("http://localhost:8080/sale/all"/*, {headers: reqHeader}*/)
+        .subscribe(getResult => {
+          console.log(getResult);
+        });
+      this.http
+        .get("http://localhost:8080/product/all"/*, {headers: reqHeader}*/)
+        .subscribe(getResult => {
+          console.log(getResult);
+        });
+      /*
         if (this.authServ.login(this.userCredentials.email, this.userCredentials.password)){
             if (this.authServ.userValue.isAdmin){
                 this.router.navigateByUrl("/admin");
@@ -36,7 +55,7 @@ export class LoginComponent implements OnInit {
                 background: '#edf2f4',
                 confirmButtonText: 'Cerrar'
             });
-        }
+        }*/
     }
 
 }
