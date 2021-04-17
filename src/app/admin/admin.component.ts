@@ -19,7 +19,11 @@ export class AdminComponent implements OnInit {
         private salesSrv: SalesService,
         private router: Router) {
         this.products = this.stockSrv.getProducts();
-        this.sales = this.salesSrv.getSales();
+        this.salesSrv.getSales()
+            .subscribe(sales => {
+                console.log(sales);
+                this.sales = sales;
+            })
     }
 
     ngOnInit(): void {
@@ -30,8 +34,9 @@ export class AdminComponent implements OnInit {
         this.router.navigate(["admin/editproduct", product.EAN]);
     }
 
-    public calcSaleTotal( saleID: number ){
-        return this.salesSrv.calcSaleTotal( saleID );
+    public calcSaleTotal(saleID: number ){
+        let sale = this.sales.find(x => x.saleID === saleID);
+        return sale.saleItems.reduce((a,b) => a + b.currentPrice * b.quantity, 0);
     }
 
     public deleteProduct( ean: string){
