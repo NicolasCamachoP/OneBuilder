@@ -18,25 +18,31 @@ export class AdminComponent implements OnInit {
         private stockSrv: StockService,
         private salesSrv: SalesService,
         private router: Router) {
-        this.products = this.stockSrv.getProducts();
+        this.getProducts();
         this.sales = this.salesSrv.getSales();
     }
 
     ngOnInit(): void {
-
+    }
+    private getProducts(){
+      this.stockSrv.getProducts().subscribe( products => {
+        this.products = products;
+      });
     }
 
     public editProduct(product: Product){
-        this.router.navigate(["admin/editproduct", product.EAN]);
+        console.log(product);
+        this.router.navigate(["admin/editproduct", product.ean]);
     }
 
     public calcSaleTotal( saleID: number ){
         return this.salesSrv.calcSaleTotal( saleID );
     }
 
-    public deleteProduct( ean: string){
-        this.stockSrv.deleteProduct( ean );
-        this.products = this.stockSrv.getProducts();
+    public deleteProduct( id: number){
+        this.stockSrv.deleteProduct( id ).subscribe( () => {
+            this.getProducts();
+        });
     }
 
     public addProduct(){
