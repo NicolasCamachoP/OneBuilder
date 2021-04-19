@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit {
         private stockSrv: StockService,
         private salesSrv: SalesService,
         private router: Router) {
-        this.products = this.stockSrv.getProducts();
+        this.getProducts();
         this.salesSrv.getSales()
             .subscribe(sales => {
                 console.log(sales);

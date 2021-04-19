@@ -27,6 +27,24 @@ export class RegisterComponent implements OnInit {
     public registerUser(){
         this.newUser.isAdmin = false;
         if( this.newUser.password === this.passwordConf ){
+          this.authServ.register(this.newUser).then((resultUser) => {
+            Swal.fire({
+              title: 'Perfecto!',
+              text: 'Registrado con exito. Bienvenido a OneBuilder!',
+              icon: 'success',
+              background: '#edf2f4',
+              confirmButtonText: 'Cerrar'
+            });
+          }).catch((error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: 'Correo registrado, intenta con otro o inicia sesión.',
+              icon: 'error',
+              background: '#edf2f4',
+              confirmButtonText: 'Cerrar'
+            });
+          });
+          /*
           this.authServ.register(this.newUser).subscribe((resultUser) => {
             if (resultUser){
               Swal.fire({
@@ -41,13 +59,13 @@ export class RegisterComponent implements OnInit {
             }else{
               Swal.fire({
                 title: 'Error!',
-                text: 'Parece que ya est`as registrado en OneBuilder.',
+                text: 'Parece que ya estas registrado en OneBuilder.',
                 icon: 'error',
                 background: '#edf2f4',
                 confirmButtonText: 'Cerrar'
               });
             }
-          });
+          });*/
         }else{
                 Swal.fire({
                     title: 'Error!',

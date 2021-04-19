@@ -52,7 +52,6 @@ export class AuthenticationService implements OnDestroy {
         let user2: User = new User();
         user2.email = "mateo@mateo.com";
         user2.password = "mateo";
-        user2.token = "";
         user2.isAdmin = false;
         user2.name = "Mark The Expert";
         this.register(user2);
@@ -60,12 +59,14 @@ export class AuthenticationService implements OnDestroy {
 
     }
 
-    public register(user: User): Observable<User> {
-      return this.sendRegisterRequest(user);
+    public register(newUser: User): Promise<User> {
+      //return this.sendRegisterRequest(newUser);
+      return  this.http
+        .post<User>("http://localhost:8080/user/create", newUser)
+        .toPromise();
     }
-    private sendRegisterRequest(newUser: User){
+    /*private sendRegisterRequest(newUser: User){
       let registeredUser: User;
-      console.log(newUser);
       let subject = new Subject<User>();
       this.http
         .post<User>("http://localhost:8080/user/create", newUser)
@@ -78,7 +79,7 @@ export class AuthenticationService implements OnDestroy {
           subject.next(registeredUser);
         });
       return subject.asObservable();
-    }
+    }*/
 
     login(email, password): Observable<User> {
         return this.sendLoginRequest({'email': email, 'password': password});

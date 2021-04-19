@@ -13,9 +13,9 @@ export class SalesService {
 
     constructor(
     private http: HttpClient) {
-        if (this.sales.length === 0){
-            //this.createMockSales();
-        }
+        /*if (this.sales.length === 0){
+            this.createMockSales();
+        }*/
     }
 
     private createMockSales(){
