@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from '../../models/product';
 import { StockService } from '../../services/stock.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editproduct',
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EditproductComponent implements OnInit, OnDestroy {
 
   public product: Product = new Product();
+  private prevProduct = new Product();
   private sub: any;
 
   constructor(
@@ -21,8 +23,9 @@ export class EditproductComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
-      this.stockSrv.getProduct(params['EAN']).subscribe(result => {
+      this.stockSrv.getProduct(params['EAN']).then(result => {
         this.product = result;
+        this.prevProduct = result;
       });
     });
   }
@@ -30,8 +33,21 @@ export class EditproductComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
+  private haveChanges(): boolean {
+    return this.prevProduct !== this.product;
+  }
   public saveProduct() {
-    this.stockSrv.updateProduct(this.product);
+    if (this.haveChanges()){
+      this.stockSrv.updateProduct(this.product).catch(() => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Error al actualizar el producto.',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+      });
+    }
     this.router.navigate(["/admin"]);
   }
 

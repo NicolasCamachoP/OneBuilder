@@ -3,6 +3,7 @@ import {User} from '../models/user';
 import {AuthenticationService} from '../services/authentication.service';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {LoginObject} from '../models/loginobject';
 
 
 @Component({
@@ -37,22 +38,20 @@ export class LoginComponent implements OnInit {
 
   public submitLogin() {
     if (this.validCredentials(this.userCredentials.email, this.userCredentials.password)) {
-      this.authServ.login(this.userCredentials.email, this.userCredentials.password).subscribe((userResult) => {
-        if (userResult.email === this.userCredentials.email) {
-          if (this.authServ.userValue.isAdmin) {
-            this.router.navigateByUrl("/admin");
-          } else {
-            this.router.navigateByUrl("/client");
-          }
+      this.authServ.login(new LoginObject(this.userCredentials)).then((userResult) => {
+        if (this.authServ.userValue.isAdmin) {
+          this.router.navigateByUrl("/admin");
         } else {
-          Swal.fire({
-            title: 'Error',
-            text: 'Las credenciales no son correctas.',
-            icon: 'error',
-            background: '#edf2f4',
-            confirmButtonText: 'Cerrar'
-          });
+          this.router.navigateByUrl("/client");
         }
+      }).catch(error => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Las credenciales no son correctas.',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
       });
     } else {
       Swal.fire({

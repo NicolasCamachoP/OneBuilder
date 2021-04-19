@@ -19,23 +19,23 @@ export class AdminComponent implements OnInit {
         private salesSrv: SalesService,
         private router: Router) {
         this.getProducts();
-        this.salesSrv.getSales()
-            .subscribe(sales => {
-                console.log(sales);
-                this.sales = sales;
-            })
     }
 
     ngOnInit(): void {
     }
+    private getSales(){
+      this.salesSrv.getSales()
+        .then(sales => {
+          this.sales = sales;
+        })
+    }
     private getProducts(){
-      this.stockSrv.getProducts().subscribe( products => {
+      this.stockSrv.getProducts().then( products => {
         this.products = products;
       });
     }
 
     public editProduct(product: Product){
-        console.log(product);
         this.router.navigate(["admin/editproduct", product.ean]);
     }
 
@@ -45,7 +45,7 @@ export class AdminComponent implements OnInit {
     }
 
     public deleteProduct( id: number){
-        this.stockSrv.deleteProduct( id ).subscribe( () => {
+        this.stockSrv.deleteProduct( id ).then( () => {
             this.getProducts();
         });
     }

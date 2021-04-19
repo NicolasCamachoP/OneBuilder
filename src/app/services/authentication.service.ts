@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import { User } from '../models/user';
 import {HttpClient} from '@angular/common/http';
+import {LoginObject} from '../models/loginobject';
 
 @Injectable({
     providedIn: 'root'
@@ -26,11 +27,6 @@ export class AuthenticationService implements OnDestroy {
 
     public get userValue(): User {
         return this.userBroadcaster.value;
-    }
-
-    public initializeUsersData(){
-        this.registerAdmin();
-        this.createMockClients();
     }
 
     private registerAdmin() {
@@ -60,46 +56,19 @@ export class AuthenticationService implements OnDestroy {
     }
 
     public register(newUser: User): Promise<User> {
-      //return this.sendRegisterRequest(newUser);
       return  this.http
         .post<User>("http://localhost:8080/user/create", newUser)
         .toPromise();
     }
-    /*private sendRegisterRequest(newUser: User){
-      let registeredUser: User;
-      let subject = new Subject<User>();
-      this.http
-        .post<User>("http://localhost:8080/user/create", newUser)
-        .subscribe( registerResult => {
-          if (registerResult.email === newUser.email){
-            registeredUser = registerResult;
-          }else{
-            registeredUser = null;
-          }
-          subject.next(registeredUser);
-        });
-      return subject.asObservable();
-    }*/
 
-    login(email, password): Observable<User> {
-        return this.sendLoginRequest({'email': email, 'password': password});
-    }
-    private sendLoginRequest(loginCredentials: any): Observable<User>{
-        let loggedUser: User;
-        let subject = new Subject<User>();
-        this.http
-          .post<User>(
-            "http://localhost:8080/user/login", loginCredentials)
-          .subscribe(loginResult => {
-            if (loginResult.email === loginCredentials.email){
-              loggedUser = loginResult;
-              this.userBroadcaster.next(loggedUser);
-            } else{
-              loggedUser = null;
-            }
-            subject.next(loggedUser);
-          });
-          return subject.asObservable();
+    login(loginCredentials: LoginObject): Promise<User> {
+      return this.http.post<User>("http://localhost:8080/user/login", loginCredentials)
+        .toPromise().then(result  => {
+          this.userBroadcaster.next(result);
+          return Promise.resolve(result);
+        }).catch(error => {
+          return Promise.reject();
+        });
     }
 
     logout() {
