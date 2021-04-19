@@ -27,11 +27,16 @@ export class AdminComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+    }
+    private getProducts(){
+      this.stockSrv.getProducts().subscribe( products => {
+        this.products = products;
+      });
     }
 
     public editProduct(product: Product){
-        this.router.navigate(["admin/editproduct", product.EAN]);
+        console.log(product);
+        this.router.navigate(["admin/editproduct", product.ean]);
     }
 
     public calcSaleTotal(saleID: number ){
@@ -39,9 +44,10 @@ export class AdminComponent implements OnInit {
         return sale.saleItems.reduce((a,b) => a + b.currentPrice * b.quantity, 0);
     }
 
-    public deleteProduct( ean: string){
-        this.stockSrv.deleteProduct( ean );
-        this.products = this.stockSrv.getProducts();
+    public deleteProduct( id: number){
+        this.stockSrv.deleteProduct( id ).subscribe( () => {
+            this.getProducts();
+        });
     }
 
     public addProduct(){

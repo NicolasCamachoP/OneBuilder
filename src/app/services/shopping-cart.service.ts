@@ -29,13 +29,13 @@ export class ShoppingCartService implements OnDestroy {
   }
 
   public addProduct(product: Product) {
-    if (this.saleItems.filter(x => x.productEAN === product.EAN).length > 0) {
+    if (this.saleItems.filter(x => x.productEAN === product.ean).length > 0) {
       this.increaseProduct(product);
     }
     else {
       let newSaleItem: SaleItem = new SaleItem();
       newSaleItem.quantity = 1;
-      newSaleItem.productEAN = product.EAN;
+      newSaleItem.productEAN = product.ean;
       newSaleItem.productName = product.name;
       newSaleItem.currentPrice = product.price;
       this.saleItems.push(newSaleItem);
@@ -48,7 +48,7 @@ export class ShoppingCartService implements OnDestroy {
     let j: number = -1;
     let flag: boolean = true;
     while (i < this.saleItems.length && flag) {
-      if (this.saleItems[i].productEAN === product.EAN) {
+      if (this.saleItems[i].productEAN === product.ean) {
         j = i;
         flag = false;
       }
@@ -68,7 +68,7 @@ export class ShoppingCartService implements OnDestroy {
           this.saveState();
           return true;
         } else {
-          this.removeProduct(this.stockSrv.getProduct(this.saleItems[i].productEAN));
+          //this.removeProduct(this.stockSrv.getProduct(this.saleItems[i].productEAN));
           this.saveState();
           return false;
         }
@@ -79,7 +79,7 @@ export class ShoppingCartService implements OnDestroy {
     return false;
   }
   public increaseCartProduct(product: SaleItem): boolean {
-    let i = 0;
+    /*let i = 0;
     while (i < this.saleItems.length) {
       if (this.saleItems[i].productEAN === product.productEAN) {
         if (this.stockSrv.getProduct(product.productEAN).stock >= this.saleItems[i].quantity + 1) {
@@ -93,14 +93,14 @@ export class ShoppingCartService implements OnDestroy {
       }
       i++;
     }
-    this.saveState();
+    this.saveState();*/
     return false;
   }
 
   public increaseProduct(product: Product): boolean {
     let i = 0;
     while (i < this.saleItems.length) {
-      if (this.saleItems[i].productEAN === product.EAN) {
+      if (this.saleItems[i].productEAN === product.ean) {
         if (product.stock >= this.saleItems[i].quantity + 1) {
           this.saleItems[i].quantity++;
           this.saveState();

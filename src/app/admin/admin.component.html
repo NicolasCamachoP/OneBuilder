@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of products; trackBy:identify">
-                    <td>{{product.EAN}}</td>
+                    <td>{{product.ean}}</td>
                     <td>{{product.name}}</td>
                     <td>{{product.stock}}</td>
                     <td>{{product.price}}</td>
@@ -23,7 +23,7 @@
                         <button type="button" class="btn btn-outline-warning" (click)="editProduct(product)">Editar</button>
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline-warning" (click)="deleteProduct(product.EAN)">Borrar</button>
+                        <button type="button" class="btn btn-outline-warning" (click)="deleteProduct(product.uid)">Borrar</button>
                     </td>
                 </tr>
             </tbody>

@@ -1,8 +1,8 @@
 export class Product {
-    public UID: number;
+    public uid: number;
     public name: string;
     public description: string;
     public stock: number;
     public price: number;
-    public EAN: string;
+    public ean: string;
 }
