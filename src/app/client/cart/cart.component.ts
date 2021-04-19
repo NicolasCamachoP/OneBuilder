@@ -15,11 +15,11 @@ import { StockService } from 'src/app/services/stock.service';
 export class CartComponent implements OnInit {
     public products: SaleItem[] = [];
 
-    constructor( 
+    constructor(
         private shoppingSrv: ShoppingCartService,
-        private salesSrv: SalesService, 
-        private router: Router, 
-        private authSrv: AuthenticationService, 
+        private salesSrv: SalesService,
+        private router: Router,
+        private authSrv: AuthenticationService,
         private stockSrv: StockService) {
         this.products = this.shoppingSrv.getItems();
     }
@@ -57,16 +57,19 @@ export class CartComponent implements OnInit {
     }
 
     public goToCheckOut() {
-        this.salesSrv.createSale(this.shoppingSrv.getItems(), this.authSrv.userValue.UID);
-        this.updateStock();
+        this.salesSrv.createSale(this.shoppingSrv.getItems(), this.authSrv.userValue.UID)
+            .subscribe(saleResult => {
+                if(saleResult !== undefined){
+                    console.log(saleResult);
+                    this.router.navigate(['client/purchasedetail',saleResult.saleID]);
+                }
+            });
         this.shoppingSrv.clearCart();
-        let saleID = this.salesSrv.getLastSaleIDFromClient(this.authSrv.userValue.UID);
-        this.router.navigate(['client/purchasedetail',saleID]);
     }
 
     private updateStock(){
         for (let i =0; i< this.products.length; i++){
-            this.stockSrv.reduceProductStock(this.products[i].productEAN, 
+            this.stockSrv.reduceProductStock(this.products[i].productEAN,
                 this.products[i].quantity);
         }
     }

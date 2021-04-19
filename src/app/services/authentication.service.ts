@@ -11,20 +11,13 @@ import {HttpClient} from '@angular/common/http';
 export class AuthenticationService implements OnDestroy {
     private userBroadcaster: BehaviorSubject<User>;
     public user: Observable<User>;
-    //private usersArrayName = 'mock-users-array';
-    //private users = JSON.parse(localStorage.getItem(this.usersArrayName)) || [];
-
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        //this.userBroadcaster = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
         this.userBroadcaster = new BehaviorSubject<User>(null);
         this.user = this.userBroadcaster.asObservable();
-        /*if (this.users.length === 0) {
-            this.initializeUsersData();
-        }*/
     }
 
     public ngOnDestroy() {
@@ -56,6 +49,15 @@ export class AuthenticationService implements OnDestroy {
         user.isAdmin = false;
         user.name = "Mark The Expert";
         this.register(user);
+        let user2: User = new User();
+        user2.email = "mateo@mateo.com";
+        user2.password = "mateo";
+        user2.token = "";
+        user2.isAdmin = false;
+        user2.name = "Mark The Expert";
+        this.register(user2);
+
+
     }
 
     public register(user: User): Observable<User> {
@@ -100,7 +102,6 @@ export class AuthenticationService implements OnDestroy {
     }
 
     logout() {
-        //localStorage.removeItem('user');
         this.userBroadcaster.next(null);
         this.router.navigate(['/']);
     }

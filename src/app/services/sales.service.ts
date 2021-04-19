@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Sale } from '../models/sale';
 import { SaleItem } from '../models/sale-item';
+import { HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -9,9 +11,10 @@ export class SalesService {
     private salesArrayName = 'mock-sales-array';
     private sales = JSON.parse(localStorage.getItem(this.salesArrayName)) || [];
 
-    constructor() {
+    constructor(
+    private http: HttpClient) {
         if (this.sales.length === 0){
-            this.createMockSales();
+            //this.createMockSales();
         }
     }
 
@@ -40,15 +43,20 @@ export class SalesService {
         this.createSale(si, 2);
     }
 
-    public createSale(saleItems: SaleItem[], clientID: number) {
+    public createSale(saleItems: SaleItem[], clientID: number): Observable<Sale>{
         let s: Sale = new Sale();
-        s.saleID = this.sales.length ? Math.max(...this.sales.map(x => x.saleID)) + 1 : 1;
+        s.saleID = 0;
         s.dateTime = new Date();
         s.saleItems = saleItems;
         s.clientID = clientID;
-        this.sales.push(s);
-        localStorage.setItem(this.salesArrayName, JSON.stringify(this.sales));
-
+        let subject = new Subject<Sale>();
+        this.http.post<Sale>("http://localhost:8080/sale/create", s )
+            .subscribe( saleResult => {
+                if(saleResult.clientID === s.clientID){
+                    subject.next(saleResult);
+                }
+            });
+        return subject.asObservable();
     }
 
     public calcSaleTotal(saleID: number) {
@@ -66,8 +74,12 @@ export class SalesService {
         this.sales = this.sales.filter(x => x.saleID !== saleID);
         localStorage.setItem(this.salesArrayName, JSON.stringify(this.sales));
     }
-    public getSales() {
-        return this.sales;
+    public getSales(): Observable<Sale[]> {
+        let subject = new Subject<Sale[]>();
+        this.http.get<Sale[]>('http://localhost:8080/sale/all').subscribe( sales => {
+            subject.next(sales);
+        });
+        return subject.asObservable();
     }
 
     public getSale(saleID: number) {

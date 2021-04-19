@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         background: '#edf2f4',
         confirmButtonText: 'Cerrar'
       });
+
     }
 
   }
