@@ -13,9 +13,6 @@ export class SalesService {
 
     constructor(
     private http: HttpClient) {
-        if (this.sales.length === 0){
-            //this.createMockSales();
-        }
     }
 
     private createMockSales(){
@@ -74,12 +71,9 @@ export class SalesService {
         this.sales = this.sales.filter(x => x.saleID !== saleID);
         localStorage.setItem(this.salesArrayName, JSON.stringify(this.sales));
     }
-    public getSales(): Observable<Sale[]> {
-        let subject = new Subject<Sale[]>();
-        this.http.get<Sale[]>('http://localhost:8080/sale/all').subscribe( sales => {
-            subject.next(sales);
-        });
-        return subject.asObservable();
+    public getSales(): Promise<Sale[]> {
+        return this.http.get<Sale[]>('http://localhost:8080/sale/all')
+          .toPromise();
     }
 
     public getSale(saleID: number) {

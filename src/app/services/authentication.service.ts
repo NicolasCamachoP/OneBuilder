@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 import { User } from '../models/user';
 import {HttpClient} from '@angular/common/http';
+import {LoginObject} from '../models/loginobject';
 
 @Injectable({
     providedIn: 'root'
@@ -28,11 +29,6 @@ export class AuthenticationService implements OnDestroy {
         return this.userBroadcaster.value;
     }
 
-    public initializeUsersData(){
-        this.registerAdmin();
-        this.createMockClients();
-    }
-
     private registerAdmin() {
         let user: User = new User();
         user.email = "admin@onebuilder.com";
@@ -52,7 +48,6 @@ export class AuthenticationService implements OnDestroy {
         let user2: User = new User();
         user2.email = "mateo@mateo.com";
         user2.password = "mateo";
-        user2.token = "";
         user2.isAdmin = false;
         user2.name = "Mark The Expert";
         this.register(user2);
@@ -60,45 +55,20 @@ export class AuthenticationService implements OnDestroy {
 
     }
 
-    public register(user: User): Observable<User> {
-      return this.sendRegisterRequest(user);
-    }
-    private sendRegisterRequest(newUser: User){
-      let registeredUser: User;
-      console.log(newUser);
-      let subject = new Subject<User>();
-      this.http
+    public register(newUser: User): Promise<User> {
+      return  this.http
         .post<User>("http://localhost:8080/user/create", newUser)
-        .subscribe( registerResult => {
-          if (registerResult.email === newUser.email){
-            registeredUser = registerResult;
-          }else{
-            registeredUser = null;
-          }
-          subject.next(registeredUser);
-        });
-      return subject.asObservable();
+        .toPromise();
     }
 
-    login(email, password): Observable<User> {
-        return this.sendLoginRequest({'email': email, 'password': password});
-    }
-    private sendLoginRequest(loginCredentials: any): Observable<User>{
-        let loggedUser: User;
-        let subject = new Subject<User>();
-        this.http
-          .post<User>(
-            "http://localhost:8080/user/login", loginCredentials)
-          .subscribe(loginResult => {
-            if (loginResult.email === loginCredentials.email){
-              loggedUser = loginResult;
-              this.userBroadcaster.next(loggedUser);
-            } else{
-              loggedUser = null;
-            }
-            subject.next(loggedUser);
-          });
-          return subject.asObservable();
+    login(loginCredentials: LoginObject): Promise<User> {
+      return this.http.post<User>("http://localhost:8080/user/login", loginCredentials)
+        .toPromise().then(result  => {
+          this.userBroadcaster.next(result);
+          return Promise.resolve(result);
+        }).catch(error => {
+          return Promise.reject();
+        });
     }
 
     logout() {

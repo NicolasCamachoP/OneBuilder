@@ -41,75 +41,38 @@ export class StockService {
 
     }
 
-    public createProduct(name: string, desc: string, st: number, pr: number, ean: string): Observable<Product> {
+    public createProduct(name: string, desc: string, st: number, pr: number, ean: string): Promise<Product> {
       let newProduct: Product = new Product();
       newProduct.stock = st;
       newProduct.name = name;
       newProduct.description = desc;
       newProduct.price = pr;
       newProduct.ean = ean;
-      return this.sendProductCreateRequest(newProduct);
-    }
-    private sendProductCreateRequest(newProduct: Product): Observable<Product>{
-      let createdProduct: Product;
-      let subject = new  Subject<Product>();
-      this.http.post<Product>("http://localhost:8080/product/create", newProduct).subscribe(
-        result => {
-          if (result.ean === newProduct.ean){
-            createdProduct = result;
-          }else{
-            createdProduct = null;
-          }
-          subject.next(createdProduct);
-        });
-      return subject.asObservable();
+      return this.http.post<Product>("http://localhost:8080/product/create", newProduct)
+        .toPromise();
     }
 
     public getProduct(ean: string) {
-        return this.sendGetProductRequest(ean);
-    }
-    private sendGetProductRequest(productEan: string){
-      let product : Product;
-      let subject = new Subject<Product>();
-      this.http.get<Product>("http://localhost:8080/product/" + productEan).subscribe( result => {
-        if (result.ean === productEan){
-          product = result;
-        }else{
-          product = null;
-        }
-        subject.next(product);
-      });
-      return subject.asObservable();
+        return this.http.get<Product>("http://localhost:8080/product/" + ean)
+          .toPromise();
     }
 
-    public getProducts() {
-        return this.sendGetProductsRequest();
+    public getProducts(): Promise<Product[]>{
+        return this.http.get<Product[]>("http://localhost:8080/product/all")
+        .toPromise();
     }
-
-    private sendGetProductsRequest(): Observable<Product[]>{
-      let products:Product[];
-      let subject = new Subject<Product[]>();
-      this.http.get<Product[]>("http://localhost:8080/product/all").subscribe(
-        result => {
-          products = result;
-          subject.next(products);
-        }
-      );
-      return subject.asObservable();
-    }
-
 
     public getProductsInStock() {
         return this.stock.filter( x => x.stock > 0 );
     }
 
     public deleteProduct(id: number) {
-
-        return this.http.delete<Product>("http://localhost:8080/product/" + id);
+        return this.http.delete<Product>("http://localhost:8080/product/" + id)
+          .toPromise();
     }
 
-    public updateProduct(p: Product) {
-        this.http.put("http://localhost:8080/product/" + p.uid, p).subscribe(() => {});
+    public updateProduct(p: Product): Promise<Object> {
+        return this.http.put("http://localhost:8080/product/" + p.uid, p).toPromise();
 
     }
 

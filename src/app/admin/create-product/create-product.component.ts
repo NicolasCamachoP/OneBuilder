@@ -24,30 +24,25 @@ export class CreateProductComponent implements OnInit {
 
   public saveProduct() {
     if (this.validateProduct()) {
-
       this.stockSrv.createProduct(this.product.name, this.product.description,
-        this.product.stock, this.product.price, this.product.ean).subscribe(result => {
-          if (result.ean === this.product.ean) {
-            Swal.fire({
-              title: 'Perfecto!',
-              text: 'Producto agregado con exito!',
-              icon: 'success',
-              background: '#edf2f4',
-              confirmButtonText: 'Cerrar'
-            });
-            this.router.navigateByUrl('/admin');
-          } else {
-            Swal.fire({
-              title: 'Error!',
-              text: 'EAN ya existente!',
-              icon: 'error',
-              background: '#edf2f4',
-              confirmButtonText: 'Cerrar'
-            });
-
-          }
-        }
-      );
+        this.product.stock, this.product.price, this.product.ean).then(result => {
+        Swal.fire({
+          title: 'Perfecto!',
+          text: 'Producto agregado con exito!',
+          icon: 'success',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+        this.router.navigateByUrl('/admin');
+      }).catch(() => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'EAN ya existente!',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+      });
     } else {
       Swal.fire({
         title: 'Error',
