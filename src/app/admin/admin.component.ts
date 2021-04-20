@@ -3,6 +3,7 @@ import { StockService } from '../services/stock.service';
 import { SalesService } from '../services/sales.service';
 import { Sale } from '../models/sale';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 import { Product } from '../models/product';
 
@@ -17,8 +18,10 @@ export class AdminComponent implements OnInit {
     constructor(
         private stockSrv: StockService,
         private salesSrv: SalesService,
+        private datePipe: DatePipe,
         private router: Router) {
         this.getProducts();
+        this.getSales();
     }
 
     ngOnInit(): void {
@@ -27,7 +30,7 @@ export class AdminComponent implements OnInit {
       this.salesSrv.getSales()
         .then(sales => {
           this.sales = sales;
-        })
+        });
     }
     private getProducts(){
       this.stockSrv.getProducts().then( products => {
@@ -41,7 +44,8 @@ export class AdminComponent implements OnInit {
 
     public calcSaleTotal(saleID: number ){
         let sale = this.sales.find(x => x.saleID === saleID);
-        return sale.saleItems.reduce((a,b) => a + b.currentPrice * b.quantity, 0);
+        return sale.saleItems.reduce((a,b) => a + b.currentPrice * b.quantity, 0)
+                .toLocaleString('en-us', {minimumFractionDigits: 0});
     }
 
     public deleteProduct( id: number){
@@ -52,6 +56,10 @@ export class AdminComponent implements OnInit {
 
     public addProduct(){
         this.router.navigateByUrl("admin/createproduct");
+    }
+
+    public formatDate(date: Date){
+        return this.datePipe.transform(date, 'dd-MM-yyyy HH:MM');
     }
 
     identify( index, product){

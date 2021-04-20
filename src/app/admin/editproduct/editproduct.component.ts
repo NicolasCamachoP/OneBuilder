@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class EditproductComponent implements OnInit, OnDestroy {
 
   public product: Product = new Product();
-  private prevProduct = new Product();
+  private prevProduct: Product = new Product();
   private sub: any;
 
   constructor(
@@ -24,8 +24,8 @@ export class EditproductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => {
       this.stockSrv.getProduct(params['EAN']).then(result => {
-        this.product = result;
-        this.prevProduct = result;
+        this.product = {...result};
+        this.prevProduct = {...result};
       });
     });
   }
@@ -38,7 +38,9 @@ export class EditproductComponent implements OnInit, OnDestroy {
   }
   public saveProduct() {
     if (this.haveChanges()){
-      this.stockSrv.updateProduct(this.product).catch(() => {
+      this.stockSrv.updateProduct(this.product).then(
+          () => this.router.navigate(["/admin"])
+      ).catch(() => {
         Swal.fire({
           title: 'Error!',
           text: 'Error al actualizar el producto.',
@@ -46,9 +48,12 @@ export class EditproductComponent implements OnInit, OnDestroy {
           background: '#edf2f4',
           confirmButtonText: 'Cerrar'
         });
+        this.router.navigate(["/admin"]);
       });
     }
-    this.router.navigate(["/admin"]);
+    else{
+        console.log('Error, same.', 'Object Prev: ' , this.prevProduct, 'Object New: ', this.product);
+    }
   }
 
 }

@@ -17,8 +17,8 @@
                 <tr *ngFor="let product of products; trackBy:identify">
                     <td>{{product.ean}}</td>
                     <td>{{product.name}}</td>
-                    <td>{{product.stock}}</td>
-                    <td>{{product.price}}</td>
+                    <td>{{product.stock.toLocaleString()}}</td>
+                    <td>{{product.price.toLocaleString()}}</td>
                     <td>
                         <button type="button" class="btn btn-outline-warning" (click)="editProduct(product)">Editar</button>
                     </td>
@@ -45,7 +45,7 @@
                 <tr *ngFor="let sale of sales">
                     <td>{{sale.saleID}}</td>
                     <td>{{sale.clientID}}</td>
-                    <td>{{sale.dateTime.toLocaleString()}}</td>
+                    <td>{{formatDate(sale.dateTime)}}</td>
                     <td>{{calcSaleTotal(sale.saleID)}}</td>
                 </tr>
             </tbody>
