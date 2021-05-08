@@ -1,9 +1,11 @@
 import { Injectable, DebugElement, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 import { User } from '../models/user';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {LoginObject} from '../models/loginobject';
 
 @Injectable({
@@ -30,22 +32,32 @@ export class AuthenticationService implements OnDestroy {
     }
 
     public register(newUser: User, role: String): Promise<User> {
-      return  this.http
+        return  this.http
         .post<User>("http://localhost:8080/user/create/" + role, newUser)
         .toPromise();
     }
 
     login(loginCredentials: LoginObject): Promise<User> {
-      return this.http.post<any>("http://localhost:8080/user/login", loginCredentials)
+        this.getUserFromLogin(loginCredentials);
+        return this.http.post<any>("http://localhost:8080/login", loginCredentials)
         .toPromise().then(result  => {
-          console.log(result);
-          console.log("|||||||");
-          this.userBroadcaster.next(result);
-          return Promise.resolve(result);
+            console.log(result);
+            console.log("|||||||");
+            this.userBroadcaster.next(result);
+            return Promise.resolve(result);
         }).catch(error => {
-          return Promise.reject();
+            return Promise.reject();
         });
     }
+
+    getUserFromLogin(loginCredentials: LoginObject)  {
+        this.http
+        .post<any>("http://localhost:8080/login", loginCredentials, {observe: 'response'})
+        .subscribe(resp => {
+            console.log(resp.headers.get("Authorization"));
+        });
+    }
+
 
     logout() {
         this.userBroadcaster.next(null);
