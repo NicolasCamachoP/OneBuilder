@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 import { faUser, faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 import Swal from "sweetalert2";
+import {Role} from '../models/role';
 
 @Component({
     selector: 'app-register',
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
     public registerUser(){
         this.newUser.isAdmin = false;
         if( this.newUser.password === this.passwordConf ){
-          this.authServ.register(this.newUser).then((resultUser) => {
+          this.authServ.register(this.newUser, Role.USER).then((resultUser) => {
             Swal.fire({
               title: 'Perfecto!',
               text: 'Registrado con exito. Bienvenido a OneBuilder!',

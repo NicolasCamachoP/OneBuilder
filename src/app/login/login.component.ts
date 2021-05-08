@@ -40,9 +40,9 @@ export class LoginComponent implements OnInit {
     if (this.validCredentials(this.userCredentials.email, this.userCredentials.password)) {
       this.authServ.login(new LoginObject(this.userCredentials)).then((userResult) => {
         if (this.authServ.userValue.isAdmin) {
-          this.router.navigateByUrl("/admin");
+          //this.router.navigateByUrl("/admin");
         } else {
-          this.router.navigateByUrl("/client");
+          //this.router.navigateByUrl("/client");
         }
       }).catch(error => {
         Swal.fire({

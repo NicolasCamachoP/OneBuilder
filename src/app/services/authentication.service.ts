@@ -29,41 +29,17 @@ export class AuthenticationService implements OnDestroy {
         return this.userBroadcaster.value;
     }
 
-    private registerAdmin() {
-        let user: User = new User();
-        user.email = "admin@onebuilder.com";
-        user.password = "admin";
-        user.isAdmin = true;
-        user.name = "Administrador";
-        this.register(user);
-    }
-
-    private createMockClients() {
-        let user: User = new User();
-        user.email = "mark@hotmail.com";
-        user.password = "mark";
-        user.isAdmin = false;
-        user.name = "Mark The Expert";
-        this.register(user);
-        let user2: User = new User();
-        user2.email = "mateo@mateo.com";
-        user2.password = "mateo";
-        user2.isAdmin = false;
-        user2.name = "Mark The Expert";
-        this.register(user2);
-
-
-    }
-
-    public register(newUser: User): Promise<User> {
+    public register(newUser: User, role: String): Promise<User> {
       return  this.http
-        .post<User>("http://localhost:8080/user/create", newUser)
+        .post<User>("http://localhost:8080/user/create/" + role, newUser)
         .toPromise();
     }
 
     login(loginCredentials: LoginObject): Promise<User> {
-      return this.http.post<User>("http://localhost:8080/user/login", loginCredentials)
+      return this.http.post<any>("http://localhost:8080/user/login", loginCredentials)
         .toPromise().then(result  => {
+          console.log(result);
+          console.log("|||||||");
           this.userBroadcaster.next(result);
           return Promise.resolve(result);
         }).catch(error => {

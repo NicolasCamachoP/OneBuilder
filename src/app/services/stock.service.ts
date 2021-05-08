@@ -72,7 +72,7 @@ export class StockService {
     }
 
     public updateProduct(p: Product): Promise<Object> {
-        return this.http.put("http://localhost:8080/product/" + p.uid, p).toPromise();
+        return this.http.put("http://localhost:8080/product/update", p).toPromise();
 
     }
 
