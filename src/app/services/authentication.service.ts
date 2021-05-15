@@ -5,22 +5,29 @@ import { map } from 'rxjs/operators';
 
 
 import { User } from '../models/user';
-import {HttpClient, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpResponse, HttpHeaders} from '@angular/common/http';
 import {LoginObject} from '../models/loginobject';
+import { APIENDPOINT } from '../constants/endpoints.constants';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthenticationService implements OnDestroy {
     private userBroadcaster: BehaviorSubject<User>;
+    private userToken?: string;
+    private headers: HttpHeaders;
     public user: Observable<User>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userBroadcaster = new BehaviorSubject<User>(null);
-        this.user = this.userBroadcaster.asObservable();
+        if(localStorage.getItem('token')){
+            this.recoverSession()
+        }else{
+            this.userBroadcaster = new BehaviorSubject<User>(null);
+            this.user = this.userBroadcaster.asObservable();
+        }
     }
 
     public ngOnDestroy() {
@@ -33,34 +40,53 @@ export class AuthenticationService implements OnDestroy {
 
     public register(newUser: User, role: String): Promise<User> {
         return  this.http
-        .post<User>("http://localhost:8080/user/create/" + role, newUser)
+        .post<User>(APIENDPOINT + "user/create/" + role, newUser)
         .toPromise();
     }
 
-    login(loginCredentials: LoginObject): Promise<User> {
-        this.getUserFromLogin(loginCredentials);
-        return this.http.post<any>("http://localhost:8080/login", loginCredentials)
+    recoverSession() {
+        this.userToken = localStorage.getItem('token');
+        this.http.get<User>(APIENDPOINT + "user/" + localStorage.getItem('email'), {headers: this.headers})
         .toPromise().then(result  => {
-            console.log(result);
-            console.log("|||||||");
             this.userBroadcaster.next(result);
-            return Promise.resolve(result);
         }).catch(error => {
-            return Promise.reject();
+            localStorage.clear();
+            this.userBroadcaster = new BehaviorSubject<User>(null);
+            this.user = this.userBroadcaster.asObservable();
         });
+
+    }
+
+    login(loginCredentials: LoginObject): Promise<User> {
+        let user: User;
+        return this.http
+        .post<any>(APIENDPOINT + "login", loginCredentials, {observe: 'response'})
+        .toPromise().then(resp => {
+            console.log(resp.headers.get("Authorization"));
+            localStorage.setItem('token', resp.headers.get('Authorization'));
+            localStorage.setItem('email', loginCredentials.email);
+            this.userToken = resp.headers.get('Authorization');
+            this.headers = new HttpHeaders({'Authorization': this.userToken});
+            return this.http.get<User>(APIENDPOINT + "user/" + loginCredentials.email, {headers: this.headers})
+            .toPromise().then(result  => {
+                console.log(result);
+                this.userBroadcaster.next(result);
+                user = result;
+                return Promise.resolve(result);
+            }).catch(error => {
+                return Promise.reject();
+            });
+        });
+
     }
 
     getUserFromLogin(loginCredentials: LoginObject)  {
-        this.http
-        .post<any>("http://localhost:8080/login", loginCredentials, {observe: 'response'})
-        .subscribe(resp => {
-            console.log(resp.headers.get("Authorization"));
-        });
     }
 
 
     logout() {
         this.userBroadcaster.next(null);
+        localStorage.clear();
         this.router.navigate(['/']);
     }
 
