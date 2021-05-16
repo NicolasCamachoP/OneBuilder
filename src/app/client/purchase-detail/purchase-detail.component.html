@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-9 col-xs-9 purchase-info">
                     <h4 class="info-code">Orden de Compra #{{sale.saleID}}</h4>
-                    <div class="info-date">Fecha de Factura: {{sale.dateTime.toLocaleString()}}</div>
+                    <div class="info-date">Fecha de Factura: {{formatDate(sale.dateTime)}}</div>
                 </div>
             </div>
             <hr>
@@ -41,7 +41,7 @@
                                 <td class="col-xs-1 col-sm-1 text-center">{{saleItem.productEAN}}</td>
                                 <td class="text-center">{{saleItem.productName}}</td>
                                 <td class="text-center">{{saleItem.quantity}}</td>
-                                <td class="text-center">{{saleItem.quantity * saleItem.currentPrice}}</td>
+                                <td class="text-center">{{(saleItem.quantity * saleItem.currentPrice).toLocaleString('en-us', {minimumFractionDigits: 0})}}</td>
                             </tr>
                         </tbody>
                         <tfoot>

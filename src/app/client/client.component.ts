@@ -21,22 +21,22 @@ export class ClientComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+
   }
 
   public lastDetail(){
-    let saleID = this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID);
-    if (saleID === null){
-        Swal.fire({
-            title: 'Sin Compras!',
-            text: 'Aun no has realizado ninguna compra',
-            icon: 'error',
-            background: '#edf2f4',
-            confirmButtonText: 'Aceptar'
-        })
-    }else{
-      this.router.navigate(['client/purchasedetail', saleID]);
-    }
+    this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID)
+      .then(sale => {
+        this.router.navigate(['client/purchasedetail', sale.saleID])
+      }).catch(() => {
+      Swal.fire({
+        title: 'Sin Compras!',
+        text: 'Aun no has realizado ninguna compra',
+        icon: 'error',
+        background: '#edf2f4',
+        confirmButtonText: 'Aceptar'
+      });
+    });
   }
 
   public goToBuy(){
@@ -46,4 +46,5 @@ export class ClientComponent implements OnInit {
   public goToPurchases(){
     this.router.navigateByUrl('client/purchases')
   }
+
 }

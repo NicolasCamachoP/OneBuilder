@@ -12,10 +12,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let sale of sales">
-                    <td>{{sale.saleID}}</td>
-                    <td>{{sale.dateTime.toLocaleString()}}</td>
-                    <td>{{calcSaleTotal(sale.saleID)}}</td>
-                    <td><button class="btn btn-outline-warning" (click)="viewDetail(sale.saleID)">Detalle</button></td>
+                    <td scope="col">{{sale.saleID}}</td>
+                    <td scope="col">{{formatDate(sale.dateTime)}}</td>
+                    <td scope="col">{{calcSaleTotal(sale.saleID)}}</td>
+                    <td scope="col"><button class="btn btn-outline-warning" (click)="viewDetail(sale.saleID)">Detalle</button></td>
                 </tr>
             </tbody>
         </table>

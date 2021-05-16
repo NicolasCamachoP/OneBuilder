@@ -58,19 +58,17 @@ export class CartComponent implements OnInit {
 
     public goToCheckOut() {
         this.salesSrv.createSale(this.shoppingSrv.getItems(), this.authSrv.userValue.UID)
-            .subscribe(saleResult => {
-                if(saleResult !== undefined){
-                    console.log(saleResult);
-                    this.router.navigate(['client/purchasedetail',saleResult.saleID]);
-                }
-            });
-        this.shoppingSrv.clearCart();
-    }
-
-    private updateStock(){
-        for (let i =0; i< this.products.length; i++){
-            this.stockSrv.reduceProductStock(this.products[i].productEAN,
-                this.products[i].quantity);
-        }
+            .then(saleResult => {
+              this.shoppingSrv.clearCart();
+              this.router.navigate(['client/purchasedetail',saleResult.saleID]);
+            }).catch(error => {
+              Swal.fire({
+                title: 'Error!',
+                text: 'Intenta de nuevo más tarde!',
+                icon: 'error',
+                background: '#edf2f4',
+                confirmButtonText: 'Cerrar'
+              });
+        });
     }
 }

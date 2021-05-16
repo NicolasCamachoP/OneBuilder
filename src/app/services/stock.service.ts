@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Product } from '../models/product';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, Subject} from 'rxjs';
+import {Router} from '@angular/router';
+
+import { Product } from '../models/product';
+import {APIENDPOINT} from '../constants/endpoints.constants';
 
 @Injectable({
     providedIn: 'root'
@@ -12,9 +14,12 @@ export class StockService {
     private header: HttpHeaders;
 
     constructor(
-      private http: HttpClient
+      private http: HttpClient,
+      private router: Router
     ) {
+
         this.header = new HttpHeaders({'Authorization': localStorage.getItem('token')});
+
     }
 
 
@@ -25,31 +30,32 @@ export class StockService {
       newProduct.description = desc;
       newProduct.price = pr;
       newProduct.ean = ean;
-      return this.http.post<Product>("http://localhost:8080/product/create", newProduct, {headers: this.header})
+      return this.http.post<Product>(APIENDPOINT + 'product/create', newProduct, {headers: this.header})
         .toPromise();
     }
 
     public getProduct(ean: string) {
-        return this.http.get<Product>("http://localhost:8080/product/" + ean, {headers: this.header})
+        return this.http.get<Product>(APIENDPOINT + 'product/' + ean, {headers: this.header})
           .toPromise();
     }
 
     public getProducts(): Promise<Product[]>{
-        return this.http.get<Product[]>("http://localhost:8080/product/all", {headers: this.header})
+        return this.http.get<Product[]>(APIENDPOINT + 'product/all', {headers: this.header})
         .toPromise();
     }
 
-    public getProductsInStock() {
-        return this.stock.filter( x => x.stock > 0 );
+    public getProductsInStock(): Promise<Product[]> {
+        return this.http.get<Product[]>(APIENDPOINT + 'product/stock',{headers : this.header})
+          .toPromise();
     }
 
     public deleteProduct(id: number) {
-        return this.http.delete<Product>("http://localhost:8080/product/" + id, {headers: this.header})
+        return this.http.delete<Product>(APIENDPOINT + 'product/' + id, {headers: this.header})
           .toPromise();
     }
 
     public updateProduct(p: Product): Promise<Object> {
-        return this.http.put("http://localhost:8080/product/update", p, {headers: this.header}).toPromise();
+        return this.http.put(APIENDPOINT + 'product/update', p, {headers: this.header}).toPromise();
 
     }
 

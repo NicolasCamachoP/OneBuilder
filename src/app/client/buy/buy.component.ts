@@ -17,7 +17,10 @@ export class BuyComponent implements OnInit {
     constructor(
         private stockSrv: StockService,
         private shoppingSrv: ShoppingCartService) {
-            this.products = this.stockSrv.getProductsInStock();
+            this.stockSrv.getProductsInStock()
+              .then(products => {
+                this.products = products;
+              });
         }
 
         ngOnInit(): void {
