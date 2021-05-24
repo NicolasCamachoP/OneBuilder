@@ -27,7 +27,7 @@ export class ClientComponent implements OnInit {
   public lastDetail(){
     this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID)
       .then(sale => {
-        this.router.navigate(['client/purchasedetail', sale.saleID])
+        this.router.navigate(['client/purchasedetail', sale.saleID]);
       }).catch(() => {
       Swal.fire({
         title: 'Sin Compras!',

@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import jwt_decode from 'jwt-decode';
@@ -25,6 +25,13 @@ export class AuthenticationService implements OnDestroy {
       this.recoverSession();
     }
   }
+  private saveSession(): void{
+      localStorage.setItem('token', this.userToken);
+  }
+  private deleteSession(): void{
+      localStorage.removeItem('token');
+  }
+
 
   public get userValue(): User {
     return this.userBroadcaster.value;
@@ -36,8 +43,15 @@ export class AuthenticationService implements OnDestroy {
 
   public register(newUser: User, role: String): Promise<User> {
     return this.http
-      .post<User>(APIENDPOINT + 'user/create/' + role, newUser)
-      .toPromise();
+      .post<User>(APIENDPOINT + 'user/create', newUser)
+      .toPromise().then(user =>{
+        var loginCredentials: LoginObject = new LoginObject(newUser);
+        loginCredentials.email = newUser.email;
+        loginCredentials.password = newUser.password;
+        return this.login(loginCredentials);
+      }).catch(error => {
+        return Promise.reject();
+      });
   }
 
   login(loginCredentials: LoginObject): Promise<User> {
@@ -45,8 +59,8 @@ export class AuthenticationService implements OnDestroy {
     return this.http
       .post<any>(APIENDPOINT + 'login', loginCredentials, {observe: 'response'})
       .toPromise().then(resp => {
-        localStorage.setItem('token', resp.headers.get('Authorization'));
         this.userToken = resp.headers.get('Authorization');
+        this.saveSession();
         this.headers = new HttpHeaders({'Authorization': this.userToken});
         return this.http.get<User>(APIENDPOINT + 'user/' + loginCredentials.email, {headers: this.headers})
           .toPromise().then(result => {
@@ -61,9 +75,14 @@ export class AuthenticationService implements OnDestroy {
   }
 
   logout() {
-    this.userBroadcaster.next(null);
-    localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    this.http.post<any>(APIENDPOINT + 'logout', {headers: this.headers}).toPromise().then(()=>{
+      this.userBroadcaster.next(null);
+      this.deleteSession();
+      this.router.navigate(['/']);
+    }).catch(error=>{
+      console.log(error);
+    })
+
   }
 
   private initializeUserData() {
@@ -80,7 +99,7 @@ export class AuthenticationService implements OnDestroy {
         .toPromise().then(result => {
         this.userBroadcaster.next(result);
       }).catch(error => {
-        localStorage.clear();
+        this.deleteSession();
       });
     } else {
 

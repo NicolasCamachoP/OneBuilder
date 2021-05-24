@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SaleItem } from '../../models/sale-item';
 import { ShoppingCartService } from '../../services/shopping-cart.service';
 import Swal from 'sweetalert2';
-import { SalesService } from 'src/app/services/sales.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StockService } from 'src/app/services/stock.service';
@@ -25,7 +23,6 @@ export class CartComponent implements OnInit {
         this.cart = new Cart();
         this.cart.cartItems = [];
         this.shoppingSrv.getCart().then(cart => {
-          console.log(cart);
           this.cart = cart;
         }).catch(error => {
           Swal.fire({
@@ -52,6 +49,7 @@ export class CartComponent implements OnInit {
     public decreaseProductQuantity( cartItem: CartItem ){
       this.stockSrv.getProduct(cartItem.productEAN).then(p => {
         this.shoppingSrv.removeProduct(p).then(cart => {
+          console.log(cart);
           this.cart = cart;
         }).catch(error => {
           Swal.fire({
@@ -98,9 +96,17 @@ export class CartComponent implements OnInit {
     }
 
     public goToCheckOut() {
-        //TODO
-      //Comprar
-      //Tener SaleID
-      //Redirigir con SaleID
+      this.shoppingSrv.clearCart().then(sale => {
+        console.log(sale);
+        this.router.navigate(['client/purchasedetail', sale.saleID]);
+      }).catch(error=> {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Error al procesar tu compra, intenta después.',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+      });
     }
 }

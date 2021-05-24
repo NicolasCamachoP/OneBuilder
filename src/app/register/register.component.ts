@@ -36,6 +36,7 @@ export class RegisterComponent implements OnInit {
               background: '#edf2f4',
               confirmButtonText: 'Cerrar'
             });
+            this.router.navigateByUrl("/client");
           }).catch((error) => {
             Swal.fire({
               title: 'Error!',

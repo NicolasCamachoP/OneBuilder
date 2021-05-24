@@ -27,22 +27,40 @@ export class BuyComponent implements OnInit {
         }
 
         public addProductToCart( product: Product ){
-            this.shoppingSrv.addProduct( product );
-            let toast = Swal.mixin({
+            this.shoppingSrv.addProduct( product ).then(()=>{
+              let toast = Swal.mixin({
                 toast: true,
                 position: 'top-end',
                 showConfirmButton: false,
                 timer: 1200,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-            });
-            toast.fire({
+              });
+              toast.fire({
                 icon: 'success',
                 title: 'Agregado al Carrito'
+              });
+            }).catch(()=>{
+              let toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              });
+              toast.fire({
+                icon: 'error',
+                title: 'No puede superar el stock del producto.'
+              });
             });
+
         }
 
 }

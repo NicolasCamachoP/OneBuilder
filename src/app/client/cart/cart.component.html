@@ -23,7 +23,7 @@
                             <button (click)="increaseProductQuantity(saleItem)">+</button>
                         </div>
                         <div class="col">$ {{saleItem.currentPrice * saleItem.quantity}} COP <span
-                             class="close">&#10005;</span></div>
+                             class="close">&#10005;{{saleItem.quantity}}</span></div>
                     </div>
                 </div>
             </div>

@@ -1,20 +1,15 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
-import { SaleItem } from '../models/sale-item';
-import { CartItem } from '../models/cart-item';
 import { Product } from '../models/product';
-import { SalesService } from './sales.service';
 import { AuthenticationService } from './authentication.service';
-import { StockService } from './stock.service';
-import { Router } from '@angular/router';
-import {User} from '../models/user';
 import {APIENDPOINT} from '../constants/endpoints.constants';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Cart} from '../models/cart';
+import {Sale} from '../models/sale';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService implements OnDestroy {
+export class ShoppingCartService{
 
   private headers: HttpHeaders;
   private userToken: string;
@@ -27,9 +22,6 @@ export class ShoppingCartService implements OnDestroy {
     this.headers = new HttpHeaders({'Authorization': this.userToken});
   }
 
-  ngOnDestroy(): void {
-    this.saveState();
-  }
 
   public addProduct(product: Product): Promise<Cart> {
     return this.http.post<Cart>(APIENDPOINT + 'cart/add', product, {headers: this.headers})
@@ -37,6 +29,7 @@ export class ShoppingCartService implements OnDestroy {
   }
 
   public removeProduct(product: Product) {
+    console.log(product);
     return this.http.post<Cart>(APIENDPOINT + 'cart/remove', product, {headers: this.headers})
       .toPromise();
   }
@@ -47,7 +40,7 @@ export class ShoppingCartService implements OnDestroy {
   }
 
   public clearCart(){
-    return this.http.get<Cart>(APIENDPOINT + 'checkout', {headers: this.headers})
+    return this.http.get<Sale>(APIENDPOINT + 'cart/checkout', {headers: this.headers})
       .toPromise();
   }
 
