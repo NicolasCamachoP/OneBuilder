@@ -7,22 +7,22 @@
                         <div class="col">
                             <h4><b>Carrito de Compras</b></h4>
                         </div>
-                        <div class="col align-self-center text-right text-muted">{{products.length}} items</div>
+                        <div class="col align-self-center text-right text-muted">{{cart.cartItems.length}} items</div>
                     </div>
                 </div>
-                <div *ngFor="let product of products" class="row border-top border-bottom">
+                <div *ngFor="let saleItem of cart.cartItems" class="row border-top border-bottom">
                     <div class="row main align-items-center">
-                        <div class="col-2"><img class="img-fluid" src="../../../assets/brand/vector/default-monochrome.svg">
+                        <div class="col-2"><img class="img-fluid" src="../../../assets/brand/vector/default-monochrome-black.svg">
                         </div>
                         <div class="col">
-                            <div class="row">{{product.productName}}</div>
+                            <div class="row">{{saleItem.productName}}</div>
                         </div>
                         <div class="col">
-                            <button (click)="decreaseProductQuantity(product)">-</button>
-                            <a class="border">{{product.quantity}}</a>
-                            <button (click)="increaseProductQuantity(product)">+</button>
+                            <button (click)="decreaseProductQuantity(saleItem)">-</button>
+                            <a class="border">{{saleItem.quantity}}</a>
+                            <button (click)="increaseProductQuantity(saleItem)">+</button>
                         </div>
-                        <div class="col">$ {{product.currentPrice * product.quantity}} COP <span
+                        <div class="col">$ {{saleItem.currentPrice * saleItem.quantity}} COP <span
                              class="close">&#10005;</span></div>
                     </div>
                 </div>
@@ -33,13 +33,13 @@
                 </div>
                 <hr>
                 <div class="row">
-                    <div class="col" style="padding-left:0;">{{products.length}} items</div>
+                    <div class="col" style="padding-left:0;">{{cart.cartItems.length}} items</div>
                 </div>
                 <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="col">TOTAL</div>
                     <div class="col text-right">$ {{getCartTotal()}}</div>
                 </div>
-                <button *ngIf="products.length > 0" class="btn btn-outline-warning" (click)="goToCheckOut()">COMPRAR</button>
+                <button *ngIf="cart.cartItems.length > 0" class="btn btn-outline-warning" (click)="goToCheckOut()">COMPRAR</button>
             </div>
         </div>
     </div>

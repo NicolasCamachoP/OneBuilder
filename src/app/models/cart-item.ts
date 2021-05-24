@@ -3,4 +3,5 @@ export class CartItem {
     public productName: string;
     public quantity: number;
     public currentPrice: number;
+    public id: number;
 }

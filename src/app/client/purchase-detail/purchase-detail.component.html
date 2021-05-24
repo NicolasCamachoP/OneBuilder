@@ -38,7 +38,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let saleItem of saleItems">
-                                <td class="col-xs-1 col-sm-1 text-center">{{saleItem.productEAN}}</td>
+                                <td class="ean col-xs-1 col-sm-1 text-center">{{saleItem.productEAN}}</td>
                                 <td class="text-center">{{saleItem.productName}}</td>
                                 <td class="text-center">{{saleItem.quantity}}</td>
                                 <td class="text-center">{{(saleItem.quantity * saleItem.currentPrice).toLocaleString('en-us', {minimumFractionDigits: 0})}}</td>

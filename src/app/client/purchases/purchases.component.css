@@ -3,7 +3,7 @@
 }
 
 .row {
-    text-align: right !important;
+    text-align: center !important;
 }
 
 table {
@@ -20,4 +20,7 @@ table thead tr {
     height: 60px;
     color: #212529;
     text-align: center;
+}
+.text-center{
+    text-align: center!important;
 }

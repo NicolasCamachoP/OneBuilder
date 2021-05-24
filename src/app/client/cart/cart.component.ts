@@ -6,6 +6,8 @@ import { SalesService } from 'src/app/services/sales.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StockService } from 'src/app/services/stock.service';
+import {Cart} from '../../models/cart';
+import {CartItem} from '../../models/cart-item';
 
 @Component({
     selector: 'app-cart',
@@ -13,62 +15,92 @@ import { StockService } from 'src/app/services/stock.service';
     styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-    public products: SaleItem[] = [];
+    public cart: Cart;
 
     constructor(
         private shoppingSrv: ShoppingCartService,
-        private salesSrv: SalesService,
+        private stockSrv: StockService,
         private router: Router,
-        private authSrv: AuthenticationService,
-        private stockSrv: StockService) {
-        this.products = this.shoppingSrv.getItems();
+        private authSrv: AuthenticationService) {
+        this.cart = new Cart();
+        this.cart.cartItems = [];
+        this.shoppingSrv.getCart().then(cart => {
+          console.log(cart);
+          this.cart = cart;
+        }).catch(error => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Error al recuperar el carrito!',
+            icon: 'error',
+            background: '#edf2f4',
+            confirmButtonText: 'Cerrar'
+          });
+        });
     }
 
     ngOnInit(): void {
     }
 
     public getCartTotal(){
-        return this.shoppingSrv.getTotalPrice();
+      let total = 0;
+      this.cart.cartItems.forEach( item => {
+        total += +item.currentPrice * item.quantity;
+      });
+      return total.toLocaleString('en-us', {minimumFractionDigits: 0});
     }
 
-    public decreaseProductQuantity( product: SaleItem ){
-
-        if(!this.shoppingSrv.decreaseProductCart( product )){
-            Swal.fire({
-                title: 'Guardado!',
-                text: 'Producto removido del carrito!',
-                icon: 'error',
-                background: '#edf2f4',
-                confirmButtonText: 'Cerrar'
-            });
-        }
+    public decreaseProductQuantity( cartItem: CartItem ){
+      this.stockSrv.getProduct(cartItem.productEAN).then(p => {
+        this.shoppingSrv.removeProduct(p).then(cart => {
+          this.cart = cart;
+        }).catch(error => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'Tenemos dificultades técnicas...!',
+            icon: 'error',
+            background: '#edf2f4',
+            confirmButtonText: 'Cerrar'
+          });
+        });
+      }).catch(error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Tenemos dificultades técnicas...',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+      });
     }
 
-    public increaseProductQuantity( product: SaleItem ){
-        if (!this.shoppingSrv.increaseCartProduct( product )){
-            Swal.fire({
-                title: 'Error!',
-                text: 'No hay suficiente Stock!',
-                icon: 'error',
-                background: '#edf2f4',
-                confirmButtonText: 'Cerrar'
-            });
-        }
+    public increaseProductQuantity( cartItem: CartItem ){
+      this.stockSrv.getProduct(cartItem.productEAN).then(p => {
+        this.shoppingSrv.addProduct(p).then(cart => {
+          this.cart = cart;
+        }).catch(error => {
+          Swal.fire({
+            title: 'Error!',
+            text: 'No hay suficiente Stock!',
+            icon: 'error',
+            background: '#edf2f4',
+            confirmButtonText: 'Cerrar'
+          });
+        });
+      }).catch(error => {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Producto no disponible...',
+          icon: 'error',
+          background: '#edf2f4',
+          confirmButtonText: 'Cerrar'
+        });
+      });
     }
 
     public goToCheckOut() {
-        this.salesSrv.createSale(this.shoppingSrv.getItems(), this.authSrv.userValue.UID)
-            .then(saleResult => {
-              this.shoppingSrv.clearCart();
-              this.router.navigate(['client/purchasedetail',saleResult.saleID]);
-            }).catch(error => {
-              Swal.fire({
-                title: 'Error!',
-                text: 'Intenta de nuevo más tarde!',
-                icon: 'error',
-                background: '#edf2f4',
-                confirmButtonText: 'Cerrar'
-              });
-        });
+        //TODO
+      //Comprar
+      //Tener SaleID
+      //Redirigir con SaleID
     }
 }

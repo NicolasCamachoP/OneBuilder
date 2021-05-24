@@ -98,3 +98,7 @@ table thead tr {
 {
     min-height: 1000px !important;
 }
+
+.ean {
+    padding: 1em;
+}

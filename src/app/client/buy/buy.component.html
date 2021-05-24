@@ -5,7 +5,7 @@
                 <img src="../../../assets/brand/vector/default-monochrome.svg" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-name card-title">{{product.name}}</h5>
-                    <h5 class="card-price card-title">$ {{product.price}} COP</h5>
+                    <h5 class="card-price card-title">$ {{product.price.toLocaleString('en-us', {minimumFractionDigits: 0})}} COP</h5>
                     <h5 class="card-stock card-title">{{product.stock}} Unidades Disponibles</h5>
                     <p class="card-detail card-text">{{product.description}}</p>
                     <button class="btn btn-outline-warning" (click)="addProductToCart(product)">Agregar</button>
