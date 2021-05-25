@@ -1,9 +1,8 @@
-
-import { SaleItem } from './sale-item';
+import {SaleItem} from './sale-item';
 
 export class Sale {
-    public saleID: number;
-    public saleItems: SaleItem[];
-    public dateTime: Date;
-    public clientID: number;
+  public saleID: number;
+  public saleItems: SaleItem[];
+  public dateTime: Date;
+  public clientID: number;
 }

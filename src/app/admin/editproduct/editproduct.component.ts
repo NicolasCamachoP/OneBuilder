@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Product } from '../../models/product';
-import { StockService } from '../../services/stock.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Product} from '../../models/product';
+import {StockService} from '../../services/stock.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -29,6 +29,7 @@ export class EditproductComponent implements OnInit, OnDestroy {
       });
     });
   }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
@@ -36,10 +37,11 @@ export class EditproductComponent implements OnInit, OnDestroy {
   private haveChanges(): boolean {
     return this.prevProduct !== this.product;
   }
+
   public saveProduct() {
-    if (this.haveChanges()){
+    if (this.haveChanges()) {
       this.stockSrv.updateProduct(this.product).then(
-          () => this.router.navigate(["/admin"])
+        () => this.router.navigate(['/admin'])
       ).catch(() => {
         Swal.fire({
           title: 'Error!',
@@ -48,11 +50,10 @@ export class EditproductComponent implements OnInit, OnDestroy {
           background: '#edf2f4',
           confirmButtonText: 'Cerrar'
         });
-        this.router.navigate(["/admin"]);
+        this.router.navigate(['/admin']);
       });
-    }
-    else{
-        console.log('Error, same.', 'Object Prev: ' , this.prevProduct, 'Object New: ', this.product);
+    } else {
+      console.log('Error, same.', 'Object Prev: ', this.prevProduct, 'Object New: ', this.product);
     }
   }
 

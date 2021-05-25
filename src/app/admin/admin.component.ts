@@ -1,70 +1,73 @@
-import { Component, OnInit } from '@angular/core';
-import { StockService } from '../services/stock.service';
-import { SalesService } from '../services/sales.service';
-import { Sale } from '../models/sale';
-import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {StockService} from '../services/stock.service';
+import {SalesService} from '../services/sales.service';
+import {Sale} from '../models/sale';
+import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
-import { Product } from '../models/product';
+import {Product} from '../models/product';
 
 @Component({
-    selector: 'app-admin',
-    templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-    public products: Product[];
-    public sales: Sale[];
-    constructor(
-        private stockSrv: StockService,
-        private salesSrv: SalesService,
-        private datePipe: DatePipe,
-        private router: Router) {
-        this.getProducts();
-        this.getSales();
-    }
+  public products: Product[];
+  public sales: Sale[];
 
-    ngOnInit(): void {
-    }
-    private getSales(){
-      this.salesSrv.getSales()
-        .then(sales => {
-          this.sales = sales;
-        });
-    }
-    private getProducts(){
-      this.stockSrv.getProducts().then( products => {
-        this.products = products;
+  constructor(
+    private stockSrv: StockService,
+    private salesSrv: SalesService,
+    private datePipe: DatePipe,
+    private router: Router) {
+    this.getProducts();
+    this.getSales();
+  }
+
+  ngOnInit(): void {
+  }
+
+  private getSales() {
+    this.salesSrv.getSales()
+      .then(sales => {
+        this.sales = sales;
       });
-    }
+  }
 
-    public editProduct(product: Product){
-        this.router.navigate(["admin/editproduct", product.ean]);
-    }
+  private getProducts() {
+    this.stockSrv.getProducts().then(products => {
+      this.products = products;
+    });
+  }
 
-    public calcSaleTotal(saleID: number ){
-        let sale = this.sales.find(x => x.saleID === saleID);
-        return sale.saleItems.reduce((a,b) => a + b.currentPrice * b.quantity, 0)
-                .toLocaleString('en-us', {minimumFractionDigits: 0});
-    }
+  public editProduct(product: Product) {
+    this.router.navigate(['admin/editproduct', product.ean]);
+  }
 
-    public deleteProduct( id: number){
-        this.stockSrv.deleteProduct( id ).then( () => {
-            this.getProducts();
-        });
-    }
+  public calcSaleTotal(saleID: number) {
+    let sale = this.sales.find(x => x.saleID === saleID);
+    return sale.saleItems.reduce((a, b) => a + b.currentPrice * b.quantity, 0)
+      .toLocaleString('en-us', {minimumFractionDigits: 0});
+  }
 
-    public addProduct(){
-        this.router.navigateByUrl("admin/createproduct");
-    }
+  public deleteProduct(id: number) {
+    this.stockSrv.deleteProduct(id).then(() => {
+      this.getProducts();
+    });
+  }
 
-    public formatDate(date: Date){
-        return this.datePipe.transform(date, 'dd-MM-yyyy HH:MM');
-    }
+  public addProduct() {
+    this.router.navigateByUrl('admin/createproduct');
+  }
 
-    identify( index, product){
-        return product.EAN;
-    }
+  public formatDate(date: Date) {
+    return this.datePipe.transform(date, 'dd-MM-yyyy HH:MM');
+  }
+
+  identify(index, product) {
+    return product.EAN;
+  }
 
 
 }

@@ -1,15 +1,15 @@
 html {
-    background-color: #2b2d42;
+  background-color: #2b2d42;
 }
 
 :root {
-    background-color: #2b2d42;
+  background-color: #2b2d42;
 }
 
 .content {
-    min-height: calc( 100vh - 100px );
-    margin-top: 50px;
-    background-color: #2b2d42;
+  min-height: calc(100vh - 100px);
+  margin-top: 50px;
+  background-color: #2b2d42;
 }
 
 @media (max-width: 979px) {

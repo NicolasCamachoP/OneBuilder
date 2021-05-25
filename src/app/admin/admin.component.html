@@ -1,54 +1,54 @@
 <div class="container-fluid text-center avoid-footer">
-    <h1 class="header-admin">Administración OneBuilder</h1>
-    <h3 class="subheader-admin">Productos Ingresados</h3>
-    <div class="center overflow-auto reports-container d-flex center-block justify-content-center">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">EAN</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Disponibilidad</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Borrar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let product of products; trackBy:identify">
-                    <td>{{product.ean}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.stock.toLocaleString()}}</td>
-                    <td>{{product.price.toLocaleString()}}</td>
-                    <td>
-                        <button type="button" class="btn btn-outline-warning" (click)="editProduct(product)">Editar</button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-outline-warning" (click)="deleteProduct(product.uid)">Borrar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <button type="button" class="btn btn-outline-warning bottom-button" (click)="addProduct()">Agregar</button>
-    <h3 class="subheader-admin">Reporte de Ventas</h3>
-    <div class=" center overflow-auto reports-container d-flex center-block justify-content-center">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID Venta</th>
-                    <th scope="col">ID Cliente</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Total Venta</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let sale of sales">
-                    <td>{{sale.saleID}}</td>
-                    <td>{{sale.clientID}}</td>
-                    <td>{{formatDate(sale.dateTime)}}</td>
-                    <td>{{calcSaleTotal(sale.saleID)}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <h1 class="header-admin">Administración OneBuilder</h1>
+  <h3 class="subheader-admin">Productos Ingresados</h3>
+  <div class="center overflow-auto reports-container d-flex center-block justify-content-center">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">EAN</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Disponibilidad</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Borrar</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products; trackBy:identify">
+        <td>{{product.ean}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.stock.toLocaleString()}}</td>
+        <td>{{product.price.toLocaleString()}}</td>
+        <td>
+          <button type="button" class="btn btn-outline-warning" (click)="editProduct(product)">Editar</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-warning" (click)="deleteProduct(product.uid)">Borrar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <button type="button" class="btn btn-outline-warning bottom-button" (click)="addProduct()">Agregar</button>
+  <h3 class="subheader-admin">Reporte de Ventas</h3>
+  <div class=" center overflow-auto reports-container d-flex center-block justify-content-center">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">ID Venta</th>
+        <th scope="col">ID Cliente</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Total Venta</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let sale of sales">
+        <td>{{sale.saleID}}</td>
+        <td>{{sale.clientID}}</td>
+        <td>{{formatDate(sale.dateTime)}}</td>
+        <td>{{calcSaleTotal(sale.saleID)}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

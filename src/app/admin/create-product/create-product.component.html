@@ -1,29 +1,29 @@
 <div class="container">
-    <h1 class="page-text">Agregar Producto</h1>
-    <h4 class="subheader-edit text-center page-text">UID se genera automáticamente</h4>
-    <div class="input-group mb-3">
-        <span class="disable-group input-group-text">EAN</span>
-        <input type="text" class="form-control" [(ngModel)]="product.ean" placeholder="Serial Number"
-               aria-label="Server">
-    </div>
+  <h1 class="page-text">Agregar Producto</h1>
+  <h4 class="subheader-edit text-center page-text">UID se genera automáticamente</h4>
+  <div class="input-group mb-3">
+    <span class="disable-group input-group-text">EAN</span>
+    <input type="text" class="form-control" [(ngModel)]="product.ean" placeholder="Serial Number"
+           aria-label="Server">
+  </div>
 
-    <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon2">Nombre</span>
-        <input type="text" class="form-control" [(ngModel)]="product.name" placeholder="Nombre"
-            aria-label="Recipient's username" aria-describedby="basic-addon2">
-    </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon2">Nombre</span>
+    <input type="text" class="form-control" [(ngModel)]="product.name" placeholder="Nombre"
+           aria-label="Recipient's username" aria-describedby="basic-addon2">
+  </div>
 
-    <div class="input-group mb-3">
-        <span class="input-group-text">Precio</span>
-        <input type="number" class="form-control" [(ngModel)]="product.price" placeholder="$00" aria-label="UID">
-        <span class="input-group-text">Stock</span>
-        <input type="number" class="form-control" [(ngModel)]="product.stock" placeholder="00" aria-label="Server">
-    </div>
+  <div class="input-group mb-3">
+    <span class="input-group-text">Precio</span>
+    <input type="number" class="form-control" [(ngModel)]="product.price" placeholder="$00" aria-label="UID">
+    <span class="input-group-text">Stock</span>
+    <input type="number" class="form-control" [(ngModel)]="product.stock" placeholder="00" aria-label="Server">
+  </div>
 
-    <div class="input-group">
-        <span class="input-group-text">Descripcion</span>
-        <textarea class="form-control" [(ngModel)]="product.description" aria-label="With textarea"></textarea>
-    </div>
+  <div class="input-group">
+    <span class="input-group-text">Descripcion</span>
+    <textarea class="form-control" [(ngModel)]="product.description" aria-label="With textarea"></textarea>
+  </div>
 
-    <button class="btn btn-outline-warning centered bottom-button" (click)="saveProduct()">Guardar</button>
+  <button class="btn btn-outline-warning centered bottom-button" (click)="saveProduct()">Guardar</button>
 </div>

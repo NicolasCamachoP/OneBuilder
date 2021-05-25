@@ -1,25 +1,27 @@
-.container-fluid{
-    color: #edf2f4;
+.container-fluid {
+  color: #edf2f4;
 }
+
 .one-navbar {
-    background-color: #2b2d42;
-    color: #edf2f4 !important
+  background-color: #2b2d42;
+  color: #edf2f4 !important
 }
 
 .active {
-    color: #f6bd60 !important;
-    fill: #f6bd60;
+  color: #f6bd60 !important;
+  fill: #f6bd60;
 }
 
-.nav-link{
+.nav-link {
 
-    color: #edf2f4;
+  color: #edf2f4;
 }
 
-.btn{
-    margin-right: 1em!important;
+.btn {
+  margin-right: 1em !important;
 }
-.nav-link:hover{
-    cursor: pointer;
-    color: #f6bd60;
+
+.nav-link:hover {
+  cursor: pointer;
+  color: #f6bd60;
 }

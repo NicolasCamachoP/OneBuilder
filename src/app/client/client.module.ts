@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 
-import { ClientRoutingModule } from './client-routing.module';
-import { ClientComponent } from './client.component';
-import { CartComponent } from './cart/cart.component';
-import { PurchasesComponent } from './purchases/purchases.component';
-import { PurchaseDetailComponent } from './purchase-detail/purchase-detail.component';
-import { BuyComponent } from './buy/buy.component';
+import {ClientRoutingModule} from './client-routing.module';
+import {ClientComponent} from './client.component';
+import {CartComponent} from './cart/cart.component';
+import {PurchasesComponent} from './purchases/purchases.component';
+import {PurchaseDetailComponent} from './purchase-detail/purchase-detail.component';
+import {BuyComponent} from './buy/buy.component';
 
 @NgModule({
   declarations: [ClientComponent, CartComponent, PurchasesComponent, PurchaseDetailComponent, BuyComponent],
@@ -14,6 +14,7 @@ import { BuyComponent } from './buy/buy.component';
     CommonModule,
     ClientRoutingModule
   ],
-    providers : [ DatePipe ]
+  providers: [DatePipe]
 })
-export class ClientModule { }
+export class ClientModule {
+}

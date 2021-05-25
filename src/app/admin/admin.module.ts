@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminComponent } from './admin.component';
-import { EditproductComponent } from './editproduct/editproduct.component';
-import { CreateProductComponent } from './create-product/create-product.component';
+import {NgModule} from '@angular/core';
+import {CommonModule, DatePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {AdminRoutingModule} from './admin-routing.module';
+import {AdminComponent} from './admin.component';
+import {EditproductComponent} from './editproduct/editproduct.component';
+import {CreateProductComponent} from './create-product/create-product.component';
 
 /*28:43*/
 @NgModule({
@@ -14,6 +14,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
     AdminRoutingModule,
     FormsModule
   ],
-  providers : [ DatePipe ]
+  providers: [DatePipe]
 })
-export class AdminModule { }
+export class AdminModule {
+}

@@ -1,24 +1,24 @@
 .main {
-    background-color: #2b2d42;
-    width: 100%
+  background-color: #2b2d42;
+  width: 100%
 
 }
 
-.container-fluid{
-    padding: 40px 240px;
+.container-fluid {
+  padding: 40px 240px;
 }
 
 .main-hello {
-    color: #f6bd60;
-    font-weight: bold;
-    font-size: 4.375em;
+  color: #f6bd60;
+  font-weight: bold;
+  font-size: 4.375em;
 }
 
 .main-paragraph {
-    color: #edf2f4;
-    font-size: 1.875em;
+  color: #edf2f4;
+  font-size: 1.875em;
 }
 
 .main-product {
-    width: 120%
+  width: 120%
 }

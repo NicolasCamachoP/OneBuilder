@@ -1,26 +1,27 @@
 .main-header {
-    color: #f6bd60;
+  color: #f6bd60;
 }
 
 .row {
-    text-align: center !important;
+  text-align: center !important;
 }
 
 table {
-    border-radius: 10px;
-    border: 1px;
-    border-style: solid;
-    border-color: #f6bd60;
-    color: white;
+  border-radius: 10px;
+  border: 1px;
+  border-style: solid;
+  border-color: #f6bd60;
+  color: white;
 }
 
 table thead tr {
-    background-color: #f6bd60;
-    background-image: none;
-    height: 60px;
-    color: #212529;
-    text-align: center;
+  background-color: #f6bd60;
+  background-image: none;
+  height: 60px;
+  color: #212529;
+  text-align: center;
 }
-.text-center{
-    text-align: center!important;
+
+.text-center {
+  text-align: center !important;
 }

@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { SaleItem } from 'src/app/models/sale-item';
-import { Sale } from 'src/app/models/sale';
-import { User } from 'src/app/models/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { SalesService } from 'src/app/services/sales.service';
+import {SaleItem} from 'src/app/models/sale-item';
+import {Sale} from 'src/app/models/sale';
+import {User} from 'src/app/models/user';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {SalesService} from 'src/app/services/sales.service';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -49,12 +49,13 @@ export class PurchaseDetailComponent implements OnInit, OnDestroy {
 
   public calcTotal(): string {
     let total = 0;
-    this.saleItems.forEach( item => {
+    this.saleItems.forEach(item => {
       total += +item.currentPrice * item.quantity;
     });
     return total.toLocaleString('en-us', {minimumFractionDigits: 0});
   }
-  public formatDate(date: Date){
+
+  public formatDate(date: Date) {
     return this.datePipe.transform(date, 'dd-MM-yyyy HH:MM');
   }
 

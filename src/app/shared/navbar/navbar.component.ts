@@ -1,8 +1,8 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {User} from 'src/app/models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -12,8 +12,8 @@ import { User } from 'src/app/models/user';
 export class NavbarComponent implements OnInit, OnDestroy {
 
 
-  public isLoggedin:boolean = false;
-  public isAdmin:boolean = false;
+  public isLoggedin: boolean = false;
+  public isAdmin: boolean = false;
   user: User;
   userSubscription: Subscription;
 
@@ -25,19 +25,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
       user => {
         this.updateUserInfo();
       }
-    )
+    );
     this.updateUserInfo();
   }
 
-  private updateUserInfo(){
-    if(this.authSrv.userValue === null){
+  private updateUserInfo() {
+    if (this.authSrv.userValue === null) {
       this.isLoggedin = false;
       this.isAdmin = false;
-    } else{
+    } else {
       this.isAdmin = this.authSrv.userValue.isAdmin;
       this.isLoggedin = true;
     }
   }
+
   ngOnInit(): void {
     this.updateUserInfo();
   }
@@ -47,30 +48,31 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
 
-  public logout(){
+  public logout() {
     this.authSrv.logout();
   }
-  public login(){
-    this.router.navigateByUrl("/login");
+
+  public login() {
+    this.router.navigateByUrl('/login');
   }
 
-  public goToClientPage(){
-    this.router.navigateByUrl("/client");
+  public goToClientPage() {
+    this.router.navigateByUrl('/client');
   }
 
-  public goToAdminPage(){
-    this.router.navigateByUrl("/admin");
+  public goToAdminPage() {
+    this.router.navigateByUrl('/admin');
   }
 
-  public goToRegisterPage(){
-    this.router.navigateByUrl("/register");
+  public goToRegisterPage() {
+    this.router.navigateByUrl('/register');
   }
 
-  public goToBuy(){
-    this.router.navigateByUrl("/client/buy");
+  public goToBuy() {
+    this.router.navigateByUrl('/client/buy');
   }
 
-  public goToCart(){
-    this.router.navigateByUrl("/client/cart");
+  public goToCart() {
+    this.router.navigateByUrl('/client/cart');
   }
 }

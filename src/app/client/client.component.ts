@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../services/authentication.service';
-import { Router} from '@angular/router';
-import { SalesService } from '../services/sales.service';
-import { User } from '../models/user';
-import Swal from "sweetalert2";
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from '../services/authentication.service';
+import {Router} from '@angular/router';
+import {SalesService} from '../services/sales.service';
+import {User} from '../models/user';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-client',
@@ -16,15 +16,15 @@ export class ClientComponent implements OnInit {
   constructor(
     private authSrv: AuthenticationService,
     private router: Router,
-    private salesSrv: SalesService, ) {
-      this.currentClient = this.authSrv.userValue;
-    }
+    private salesSrv: SalesService,) {
+    this.currentClient = this.authSrv.userValue;
+  }
 
   ngOnInit(): void {
 
   }
 
-  public lastDetail(){
+  public lastDetail() {
     this.salesSrv.getLastSaleIDFromClient(this.currentClient.UID)
       .then(sale => {
         this.router.navigate(['client/purchasedetail', sale.saleID]);
@@ -39,12 +39,12 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  public goToBuy(){
+  public goToBuy() {
     this.router.navigateByUrl('client/buy');
   }
 
-  public goToPurchases(){
-    this.router.navigateByUrl('client/purchases')
+  public goToPurchases() {
+    this.router.navigateByUrl('client/purchases');
   }
 
 }

@@ -1,28 +1,28 @@
 .container {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 
 .card {
-    background-color: #555768;
-    padding: 1em;
+  background-color: #555768;
+  padding: 1em;
 }
 
 .card-name {
-    color: #f6bd60;
-    text-align: center;
+  color: #f6bd60;
+  text-align: center;
 }
 
 .card-price {
-    color: #edf2f4;
-    font-weight: bold;
+  color: #edf2f4;
+  font-weight: bold;
 }
 
 .card-stock {
-    font-size: 0.9em;
-    color: #edf2f4;
-    font-weight: bold;
+  font-size: 0.9em;
+  color: #edf2f4;
+  font-weight: bold;
 }
 
 .card-detail {
-    color: #f6bd60;
+  color: #f6bd60;
 }
