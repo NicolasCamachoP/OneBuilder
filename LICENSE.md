@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2021 Nicolás Camacho & Mateo Florido
+Copyright (c) 2021 Nicolás Camacho Plazas & Mateo Florido Sanchez
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
