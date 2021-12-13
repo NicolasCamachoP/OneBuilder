@@ -6,7 +6,7 @@ Computer parts sales SPA written in TypeScript using Angular. It allows product 
 
 OneBuilder uses a [SpringBoot backend](https://github.com/NicolasCamachoP/OBBackEnd) with token authentication using REST web services.
 
-#Usage
+# Usage
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
