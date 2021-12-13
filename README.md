@@ -41,4 +41,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## License 
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/NicolasCamachoP/OneBuilder/blob/main/LICENSE.md)
