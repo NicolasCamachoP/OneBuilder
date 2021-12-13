@@ -1,15 +1,12 @@
 # OneBuilder
 
-## Integrantes
+Computer parts sales SPA written in TypeScript using Angular. It allows product management, sales history overview, authentication, sopping cart management and products purchasing.
 
-Nicolas Camacho Plazas ID: 00020273998
-Mateo Florido Sanchez ID: 00020283652
+## Backend
 
-## Uso
+OneBuilder uses a [SpringBoot backend](https://github.com/NicolasCamachoP/OBBackEnd) with token authentication using REST web services.
 
-Se han generado cuentas de prueba para el uso del aplicativo. Si se quiere usar como administrador use las credenciales: admin@onebuilder.com / admin
-En caso de usar una cuenta de cliente: mark@hotmail.com / mark
-
+#Usage
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.0.
 
